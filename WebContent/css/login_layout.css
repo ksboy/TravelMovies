@@ -1,0 +1,10 @@
+.login_grid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5%;
+}
+
+.max_width {
+	width: 100%;
+}
