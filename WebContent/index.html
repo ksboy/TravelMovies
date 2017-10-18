@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+	<meta charset="utf-8">
+    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+    <!-- 窗口适应各种设备的代码 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="css/material-components-web.css"/>
+    <link rel="stylesheet" href="css/login_layout.css"/>
+	<title>跟着电影去旅行</title>
+</head>
+<body>
+    <div class="mdc-layout-grid login_panel">
+    <div class="mdc-layout-grid__inner login_grid">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6-desktop mdc-layout-grid__cell--span-12-tablet mdc-layout-grid__cell--align-middle">
+
+          <section>
+              <div class="mdc-card" style="padding: 10%">
+              <section class="mdc-card__primary">
+                  <h1 class="mdc-card__title mdc-card__title--large">跟着电影去旅行</h1>
+              </section>
+              <nav class="mdc-tab-bar mdc-tab-bar--icon-tab-bar">
+                  <a class="mdc-tab " href="#login">
+                      <i class="material-icons mdc-tab__icon" aria-label="Login">person</i>
+                  </a>
+                  <a class="mdc-tab mdc-tab--active" href="#signup">
+                      <i class="material-icons mdc-tab__icon" aria-label="SignUp">person_add</i>
+                  </a>
+              </nav>
+                  <div id="login">
+                      <h2>登陆</h2>
+                  <section class="mdc-card__action" style="text-align: right">
+                      <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple">
+                          <span>点击进入登陆页面</span>
+                      </div>
+                  </section>
+                  </div>
+
+            </div>
+        </section>
+      </div>
+    </div>
+  </div>
+    <script type="text/javascript" src="js/material-components-web.js"></script>
+    <script type="text/javascript">mdc.autoInit()</script>
+</body>
+</html>
