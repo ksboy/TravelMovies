@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>显示地图</title>
+    
+    <style type="text/css">
+        #mapContainer {
+          height: 100%;
+        }
+        html, body {
+          height: 100%;
+          margin: 0 15% 0 0;
+          padding: 0;
+        }
+
+        .controls {
+          margin-top: 10px;
+          border: 1px solid transparent;
+          border-radius: 2px 0 0 2px;
+          box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          height: 32px;
+          outline: none;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        #keyword {
+          background-color: #fff;
+          font-family: Roboto;
+          font-size: 15px;
+          font-weight: 300;
+          margin-left: 12px;
+          padding: 0 11px 0 13px;
+          text-overflow: ellipsis;
+          width: 300px;
+          position: fixed;
+          z-index: 1;
+        }
+        #keyword:focus {
+          border-color: #4d90fe;
+        }
+    </style>
+
+  </head>
+  <body>
+    <input type="text" id="keyword" name="keyword" class="controls" value="请输入关键字" onfocus='this.value=""'/>
+
+<div id="mapContainer"></div>
+<script src="http://webapi.amap.com/maps?v=1.4.0&amp;key=7248b17e6ab13a1ff72940dea4b221a2&callback=init"></script>
+<script type="text/javascript">
+    function init(){
+    var windowsArr = [];
+    var marker = [];
+    AMap.plugin(['AMap.Autocomplete','AMap.PlaceSearch'],function(){
+      var autoOptions = {
+        city: "全国", //城市，默认全国
+        input: "keyword"//使用联想输入的input的id
+      };
+      autocomplete= new AMap.Autocomplete(autoOptions);
+      var placeSearch = new AMap.PlaceSearch({
+            city:'全国',
+            map:map
+      })
+      AMap.event.addListener(autocomplete, "select", function(e){
+         //TODO 针对选中的poi实现自己的功能
+         placeSearch.setCity(e.poi.adcode);
+         placeSearch.search(e.poi.name)
+      });
+    });
+      var map = new AMap.Map("mapContainer", {
+              resizeEnable: true,
+              center: [116.40, 39.91],//地图中心点
+              zoom: 13,//地图显示的缩放级别
+              keyboardEnable: false
+      });
+    }
+</script>
+
+ <script type="text/javascript" src="https://webapi.amap.com/demos/js/liteToolbar.js"></script>
+  </body>
+</html>
