@@ -15,13 +15,14 @@
   <script type="text/javascript" src="js/material-components-web.js"></script>
   </head>
   <body>
-
+  
 <!-- 增加描述对话框 -->
     <aside id="add-discription-mdc-dialog"
     class="mdc-dialog"
     role="alertdialog"
     aria-labelledby="add-discription-mdc-dialog-label"
-    aria-describedby="add-discription-mdc-dialog-description">
+    aria-describedby="add-discription-mdc-dialog-description" style="z-index: 111">
+    <!-- z-index 的值是根据高德地图的小窗框试出来的 -->
     <div class="mdc-dialog__surface">
     <header class="mdc-dialog__header">
     <h2 id="add-discription-mdc-dialog-label" class="mdc-dialog__header__title">
@@ -34,16 +35,16 @@
             <label for="dis_user_id" class="mdc-textfield__label">用户ID</label>
         </div>
         <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-            <input type="text" class="mdc-textfield__input" id="dis_x" required>
+            <input type="text" class="mdc-textfield__input" id="dis_x" value="0" required>
             <label for="dis_x" class="mdc-textfield__label">x坐标</label>
         </div>
         <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-            <input type="text" class="mdc-textfield__input" id="dis_y" required>
+            <input type="text" class="mdc-textfield__input" id="dis_y" value="0" required>
             <label for="dis_y" class="mdc-textfield__label">y坐标</label>
         </div>
         <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-            <input type="text" class="mdc-textfield__input" id="dis_visible" required>
-            <label for="dis_visible" class="mdc-textfield__label">是否可见(TRUE/FALSE)</label>
+            <input type="text" class="mdc-textfield__input" id="dis_visible" value="1" required>
+            <label for="dis_visible" class="mdc-textfield__label">是否可见(1/0)</label>
         </div>
         <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
             <input type="text" class="mdc-textfield__input" id="dis_content">
@@ -54,8 +55,8 @@
             <label for="dis_movie" class="mdc-textfield__label">电影名</label>
         </div>
         <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-            <input type="text" class="mdc-textfield__input" id="dis_thought">
-            <label for="dis_thought" class="mdc-textfield__label">感想</label>
+            <input type="text" class="mdc-textfield__input" id="dis_thoughts">
+            <label for="dis_thoughts" class="mdc-textfield__label">感想</label>
         </div>
         <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
             <input type="text" class="mdc-textfield__input" id="dis_tags">
@@ -97,9 +98,13 @@
         <div id="mapContainer"></div>
       </div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">
-        <h2>跟着电影去旅行</h2>
         <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="add_dis_btn">新增描述</div>
+        <div class="cur_point">
+        当前坐标：<span id="s-point"></span>
+        </div>
       </div>
+
+
     </div>
   </div>
 <script src="http://webapi.amap.com/maps?v=1.4.0&amp;key=7248b17e6ab13a1ff72940dea4b221a2&callback=init"></script>
@@ -114,11 +119,11 @@
         var addialog = new mdc.dialog.MDCDialog(document.querySelector('#add-discription-mdc-dialog'));
 
         addialog.listen('MDCDialog:accept', function() {
+        	add_discrption();
         })
 
         addialog.listen('MDCDialog:cancel', function() {
         })
-        console.log("2");
         document.querySelector('#add_dis_btn').addEventListener('click', function (evt) {
           addialog.lastFocusedTarget = evt.target;
           addialog.show();

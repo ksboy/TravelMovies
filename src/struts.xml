@@ -2,11 +2,17 @@
         "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
         "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
-	<package name="com.travel.action" extends="struts-default">
+	<constant name="struts.action.extension" value="action"/>
+	<package name="com.travel.action" extends="json-default">
 		<action name="login" class="com.travel.action.LoginAction">
 			<result name="success" type="redirect">/success.jsp</result>
 			<result name="fail">/fail.jsp </result>
 			<result name="login">/login.jsp </result>
+		</action>
+		<action name="add_discription" class="com.travel.action.AddDiscriptionAction" method="AddDiscription">
+			<result type="json">
+            	<param name="root">result</param>
+            </result>
 		</action>
 	</package>
 </struts>

@@ -29,9 +29,9 @@ CREATE TABLE IF NOT EXISTS description
 (
     item_id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     user_id INT NOT NULL,
-    x DECIMAL NOT NULL,
-    y DECIMAL NOT NULL,
-    visible BOOLEAN DEFAULT TRUE NOT NULL,
+    x DOUBLE NOT NULL,
+    y DOUBLE NOT NULL,
+    visible INT DEFAULT '1' NOT NULL,
     content VARCHAR(600),
     movie VARCHAR(255) NOT NULL,
     thoughts VARCHAR(600),
