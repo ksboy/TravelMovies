@@ -15,37 +15,6 @@
   <script type="text/javascript" src="js/material-components-web.js"></script>
   </head>
   <body>
-    <header class="mdc-toolbar mdc-toolbar--fixed">
-        <div class="mdc-toolbar__row">
-            <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-              <a class="mdc-toobar__tilte-link" href="/">
-                  <span class="mdc-toolbar__title">跟着电影去旅行</span>
-                </a>
-            </section>
-            <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
-                <a href="/" class="material-icons mdc-toolbar__icon" aria-label="Home">home</a>
-                <a href="#" class="material-icons mdc-toolbar__icon" aria-label="info">info</a>
-            </section>
-        </div>
-    </header>
-
-  
-  <div class="mdc-toolbar-fixed-adjust"></div>
-
-  <div style="height: 100%">
-    <div class="mdc-layout-grid__inner" style="height: 100%">
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
-        <input type="text" id="keyword" name="keyword" class="controls" value="搜索地点" onfocus='this.value=""'/>
-        <div id="mapContainer"></div>
-      </div>
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">
-        <h2>跟着电影去旅行</h2>
-        <button id="add_dis_btn">增加描述</button>
-      </div>
-    </div>
-  </div>
-<script src="http://webapi.amap.com/maps?v=1.4.0&amp;key=7248b17e6ab13a1ff72940dea4b221a2&callback=init"></script>
-
 
 <!-- 增加描述对话框 -->
     <aside id="add-discription-mdc-dialog"
@@ -100,30 +69,64 @@
     </div>
     <div class="mdc-dialog__backdrop"></div>
     </aside>
+<!-- 增加描述对话框 -->
 
+
+
+    <header class="mdc-toolbar mdc-toolbar--fixed">
+        <div class="mdc-toolbar__row">
+            <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+              <a class="mdc-toobar__tilte-link" href="/">
+                  <span class="mdc-toolbar__title">跟着电影去旅行</span>
+                </a>
+            </section>
+            <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
+                <a href="/" class="material-icons mdc-toolbar__icon" aria-label="Home">home</a>
+                <a href="#" class="material-icons mdc-toolbar__icon" aria-label="info">info</a>
+            </section>
+        </div>
+    </header>
+
+  
+  <div class="mdc-toolbar-fixed-adjust"></div>
+
+  <div style="height: 100%">
+    <div class="mdc-layout-grid__inner" style="height: 100%">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
+        <input type="text" id="keyword" name="keyword" class="controls" value="搜索地点" onfocus='this.value=""'/>
+        <div id="mapContainer"></div>
+      </div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">
+        <h2>跟着电影去旅行</h2>
+        <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="add_dis_btn">新增描述</div>
+      </div>
+    </div>
+  </div>
+<script src="http://webapi.amap.com/maps?v=1.4.0&amp;key=7248b17e6ab13a1ff72940dea4b221a2&callback=init"></script>
+
+
+<!-- 增加描述对话框代码 -->
     <script type="text/javascript">
       (function() {
       var MDCDialog = mdc.dialog.MDCDialog;
         var MDCDialogFoundation = mdc.dialog.MDCDialogFoundation;
         var util = mdc.dialog.util;
-        
         var addialog = new mdc.dialog.MDCDialog(document.querySelector('#add-discription-mdc-dialog'));
 
         addialog.listen('MDCDialog:accept', function() {
-            // 执行添加动作
         })
 
         addialog.listen('MDCDialog:cancel', function() {
-            
         })
-
+        console.log("2");
         document.querySelector('#add_dis_btn').addEventListener('click', function (evt) {
-        addialog.lastFocusedTarget = evt.target;
-        addialog.show();
-      }
+          addialog.lastFocusedTarget = evt.target;
+          addialog.show();
+        })
+      })();
     </script>
-<!-- 增加描述对话框 -->
-
+<!-- 增加描述对话框代码 -->
+<script type="text/javascript">mdc.autoInit(document, () => {});</script>
 
   </body>
 </html>
