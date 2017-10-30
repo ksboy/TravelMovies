@@ -3,81 +3,127 @@
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <title>显示地图</title>
-    
-    <style type="text/css">
-        #mapContainer {
-          height: 100%;
-        }
-        html, body {
-          height: 100%;
-          margin: 0 15% 0 0;
-          padding: 0;
-        }
-
-        .controls {
-          margin-top: 10px;
-          border: 1px solid transparent;
-          border-radius: 2px 0 0 2px;
-          box-sizing: border-box;
-          -moz-box-sizing: border-box;
-          height: 32px;
-          outline: none;
-          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        }
-
-        #keyword {
-          background-color: #fff;
-          font-family: Roboto;
-          font-size: 15px;
-          font-weight: 300;
-          margin-left: 12px;
-          padding: 0 11px 0 13px;
-          text-overflow: ellipsis;
-          width: 300px;
-          position: fixed;
-          z-index: 1;
-        }
-        #keyword:focus {
-          border-color: #4d90fe;
-        }
-    </style>
-
-  </head>
-  <body>
-    <input type="text" id="keyword" name="keyword" class="controls" value="请输入关键字" onfocus='this.value=""'/>
-
-<div id="mapContainer"></div>
-<script src="http://webapi.amap.com/maps?v=1.4.0&amp;key=7248b17e6ab13a1ff72940dea4b221a2&callback=init"></script>
-<script type="text/javascript">
-    function init(){
-    var windowsArr = [];
-    var marker = [];
-    AMap.plugin(['AMap.Autocomplete','AMap.PlaceSearch'],function(){
-      var autoOptions = {
-        city: "全国", //城市，默认全国
-        input: "keyword"//使用联想输入的input的id
-      };
-      autocomplete= new AMap.Autocomplete(autoOptions);
-      var placeSearch = new AMap.PlaceSearch({
-            city:'全国',
-            map:map
-      })
-      AMap.event.addListener(autocomplete, "select", function(e){
-         //TODO 针对选中的poi实现自己的功能
-         placeSearch.setCity(e.poi.adcode);
-         placeSearch.search(e.poi.name)
-      });
-    });
-      var map = new AMap.Map("mapContainer", {
-              resizeEnable: true,
-              center: [116.40, 39.91],//地图中心点
-              zoom: 13,//地图显示的缩放级别
-              keyboardEnable: false
-      });
-    }
-</script>
+    <title>首页</title>
 
  <script type="text/javascript" src="https://webapi.amap.com/demos/js/liteToolbar.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css">
+  <link rel="stylesheet" href="css/material-components-web.css"/>
+  <link rel="stylesheet" href="css/map.css"/>
+  <script type="text/javascript" src="js/map.js"></script>
+  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="js/material-components-web.js"></script>
+  </head>
+  <body>
+    <header class="mdc-toolbar mdc-toolbar--fixed">
+        <div class="mdc-toolbar__row">
+            <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+              <a class="mdc-toobar__tilte-link" href="/">
+                  <span class="mdc-toolbar__title">跟着电影去旅行</span>
+                </a>
+            </section>
+            <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
+                <a href="/" class="material-icons mdc-toolbar__icon" aria-label="Home">home</a>
+                <a href="#" class="material-icons mdc-toolbar__icon" aria-label="info">info</a>
+            </section>
+        </div>
+    </header>
+
+  
+  <div class="mdc-toolbar-fixed-adjust"></div>
+
+  <div style="height: 100%">
+    <div class="mdc-layout-grid__inner" style="height: 100%">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
+        <input type="text" id="keyword" name="keyword" class="controls" value="搜索地点" onfocus='this.value=""'/>
+        <div id="mapContainer"></div>
+      </div>
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">
+        <h2>跟着电影去旅行</h2>
+        <button id="add_dis_btn">增加描述</button>
+      </div>
+    </div>
+  </div>
+<script src="http://webapi.amap.com/maps?v=1.4.0&amp;key=7248b17e6ab13a1ff72940dea4b221a2&callback=init"></script>
+
+
+<!-- 增加描述对话框 -->
+    <aside id="add-discription-mdc-dialog"
+    class="mdc-dialog"
+    role="alertdialog"
+    aria-labelledby="add-discription-mdc-dialog-label"
+    aria-describedby="add-discription-mdc-dialog-description">
+    <div class="mdc-dialog__surface">
+    <header class="mdc-dialog__header">
+    <h2 id="add-discription-mdc-dialog-label" class="mdc-dialog__header__title">
+    新增描述
+    </h2>
+    </header>
+    <section id="add-discription-mdc-dialog-description" class="mdc-dialog__body">
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_user_id" required>
+            <label for="dis_user_id" class="mdc-textfield__label">用户ID</label>
+        </div>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_x" required>
+            <label for="dis_x" class="mdc-textfield__label">x坐标</label>
+        </div>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_y" required>
+            <label for="dis_y" class="mdc-textfield__label">y坐标</label>
+        </div>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_visible" required>
+            <label for="dis_visible" class="mdc-textfield__label">是否可见(TRUE/FALSE)</label>
+        </div>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_content">
+            <label for="dis_content" class="mdc-textfield__label">情节</label>
+        </div>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_movie" required>
+            <label for="dis_movie" class="mdc-textfield__label">电影名</label>
+        </div>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_thought">
+            <label for="dis_thought" class="mdc-textfield__label">感想</label>
+        </div>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_tags">
+            <label for="dis_tags" class="mdc-textfield__label">标签</label>
+        </div>
+    </section>
+    <footer class="mdc-dialog__footer">
+    <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">取消</button>
+    <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">确定</button>
+    </footer>
+    </div>
+    <div class="mdc-dialog__backdrop"></div>
+    </aside>
+
+    <script type="text/javascript">
+      (function() {
+      var MDCDialog = mdc.dialog.MDCDialog;
+        var MDCDialogFoundation = mdc.dialog.MDCDialogFoundation;
+        var util = mdc.dialog.util;
+        
+        var addialog = new mdc.dialog.MDCDialog(document.querySelector('#add-discription-mdc-dialog'));
+
+        addialog.listen('MDCDialog:accept', function() {
+            // 执行添加动作
+        })
+
+        addialog.listen('MDCDialog:cancel', function() {
+            
+        })
+
+        document.querySelector('#add_dis_btn').addEventListener('click', function (evt) {
+        addialog.lastFocusedTarget = evt.target;
+        addialog.show();
+      }
+    </script>
+<!-- 增加描述对话框 -->
+
+
   </body>
 </html>

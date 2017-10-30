@@ -1,0 +1,53 @@
+html {
+  margin: 0;
+  padding: 0;
+  height: 95%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-size: cover;
+  background: #fafafa;
+  font-family: Roboto, sans-serif;
+  height: 94%;
+}
+
+div {
+  display: block;
+}
+
+.mdc-toobar__tilte-link{
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+}
+
+#mapContainer {
+  height: 100%;
+}
+.controls {
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 2px 0 0 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  height: 32px;
+  outline: none;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+#keyword {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+  margin-left: 12px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 300px;
+  position: fixed;
+  z-index: 1;
+}
+#keyword:focus {
+  border-color: #4d90fe;
+}
