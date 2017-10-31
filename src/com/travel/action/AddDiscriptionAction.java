@@ -28,7 +28,6 @@ public class AddDiscriptionAction extends ActionSupport {
 		}else {
 			return ERROR;
 		}
-			
 	}
 	public String getResult() {
 		return result;
