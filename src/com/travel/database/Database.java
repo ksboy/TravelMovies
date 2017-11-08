@@ -62,19 +62,20 @@ public class Database {
 		return false;
 	}
 	
-	public static int AddDiscription(String user_id, String x, String y, String visible, String content, String movie, String thoughts, String tags) {
-		String sql = "INSERT INTO description (user_id, x, y, visible, content, movie, thoughts, tags) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+	public static int AddDiscription(String user_id, String x, String y, String place, String visible, String content, String movie, String thoughts, String tags) {
+		String sql = "INSERT INTO description (user_id, x, y, place, visible, content, movie, thoughts, tags) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user_id);
 			pstmt.setDouble(2, Double.parseDouble(x));
 			pstmt.setDouble(3, Double.parseDouble(y));
-			pstmt.setString(4, visible);
-			pstmt.setString(5, content);
-			pstmt.setString(6, movie);
-			pstmt.setString(7, thoughts);
-			pstmt.setString(8, tags);
+			pstmt.setString(4, place);
+			pstmt.setString(5, visible);
+			pstmt.setString(6, content);
+			pstmt.setString(7, movie);
+			pstmt.setString(8, thoughts);
+			pstmt.setString(9, tags);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			

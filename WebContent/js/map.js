@@ -1,40 +1,95 @@
-function init(){
-  var windowsArr = [];
-  var marker = [];
-  AMap.plugin(['AMap.Autocomplete','AMap.PlaceSearch'],function(){
-    var autoOptions = {
-      city: "全国", //城市，默认全国
-      input: "keyword"//使用联想输入的input的id
-    };
-    autocomplete= new AMap.Autocomplete(autoOptions);
-    var placeSearch = new AMap.PlaceSearch({
-      city:'全国',
-      map:map
-    })
-    AMap.event.addListener(autocomplete, "select", function(e){
-     //TODO 针对选中的poi实现自己的功能
-     placeSearch.setCity(e.poi.adcode);
-     placeSearch.search(e.poi.name)
+// This example adds a search box to a map, using the Google Place Autocomplete
+// feature. People can enter geographical searches. The search box will return a
+// pick list containing a mix of places and predicted search terms.
+
+// This example requires the Places library. Include the libraries=places
+// parameter when you first load the API. For example:
+// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+function initAutocomplete() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -33.8688, lng: 151.2195},
+    zoom: 13,
+    mapTypeId: 'roadmap'
+  });
+
+  var geocoder = new google.maps.Geocoder();
+
+  // Create the search box and link it to the UI element.
+  var input = document.getElementById('pac-input');
+  var searchBox = new google.maps.places.SearchBox(input);
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+  // Bias the SearchBox results towards current map's viewport.
+  map.addListener('bounds_changed', function() {
+    searchBox.setBounds(map.getBounds());
+  });
+  
+  // 按下鼠标获取地理坐标和地址
+  map.addListener('mousedown', function(event) {
+    $("#dis_x").val(event.latLng.lng());
+    $("#dis_y").val(event.latLng.lat());
+    geocoder.geocode({
+      'latLng' : event.latLng
+    }, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK){
+        if(results[0]){
+          console.log(results);
+          $("#dis_place").val(results[0].formatted_address);
+        }
+      } else {
+         console.log("错误: 可能达到GoogleMaps地址编码API请求今日2500次限额");
+      }
     });
   });
 
-  var map = new AMap.Map("mapContainer", {
-    resizeEnable: true,
-    center: [116.40, 39.91],//地图中心点
-    zoom: 13,//地图显示的缩放级别
-    keyboardEnable: false
-  });
+  var markers = [];
+  // Listen for the event fired when the user selects a prediction and retrieve
+  // more details for that place.
+  searchBox.addListener('places_changed', function() {
+    var places = searchBox.getPlaces();
 
-  var clickEventListener = map.on('mousedown', function(e) {
-    document.getElementById("s-point").innerHTML = e.lnglat.getLng() + ',' + e.lnglat.getLat();
-    $("#dis_x").val(e.lnglat.getLng());
-    $("#dis_y").val(e.lnglat.getLat());
-    mdc.autoInit(document, () => {});
-    // marker = new AMap.Marker({
-    //     icon: "http://webapi.amap.com/theme/v1.3/markers/n/mark_b.png",
-    //     position:[e.lnglat.getLng(),e.lnglat.getLat()]
-    // });
-    // marker.setMap(map);
+    if (places.length == 0) {
+      return;
+    }
+
+    // Clear out the old markers.
+    markers.forEach(function(marker) {
+      marker.setMap(null);
+    });
+    markers = [];
+
+    // For each place, get the icon, name and location.
+    var bounds = new google.maps.LatLngBounds();
+    places.forEach(function(place) {
+      if (!place.geometry) {
+        console.log("Returned place contains no geometry");
+        return;
+      }
+      var icon = {
+        url: place.icon,
+        size: new google.maps.Size(71, 71),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(17, 34),
+        scaledSize: new google.maps.Size(25, 25)
+      };
+
+      // Create a marker for each place.
+      markers.push(new google.maps.Marker({
+        map: map,
+        icon: icon,
+        title: place.name,
+        position: place.geometry.location
+      }));
+
+      if (place.geometry.viewport) {
+        // Only geocodes have viewport.
+        bounds.union(place.geometry.viewport);
+      } else {
+        bounds.extend(place.geometry.location);
+      }
+    });
+    map.fitBounds(bounds);
   });
 }
 
@@ -42,6 +97,7 @@ function add_discrption(){
   var user_id = $("#dis_user_id").val();
   var x = $("#dis_x").val();
   var y = $("#dis_y").val();
+  var place = $("#dis_place").val();
   var content = $("#dis_content").val();
   var movie = $("#dis_movie").val();
   var visible = $("#dis_visible").val();
@@ -54,6 +110,7 @@ function add_discrption(){
         user_id,
         x, 
         y,
+        place,
         content,
         movie,
         visible,

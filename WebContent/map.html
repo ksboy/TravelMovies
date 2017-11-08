@@ -43,6 +43,10 @@
             <label for="dis_y" class="mdc-textfield__label">y坐标</label>
         </div>
         <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_place" value="无" required>
+            <label for="dis_place" class="mdc-textfield__label">地点</label>
+        </div>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
             <input type="text" class="mdc-textfield__input" id="dis_visible" value="1" required>
             <label for="dis_visible" class="mdc-textfield__label">是否可见(1/0)</label>
         </div>
@@ -94,21 +98,20 @@
   <div style="height: 100%">
     <div class="mdc-layout-grid__inner" style="height: 100%">
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
-        <input type="text" id="keyword" name="keyword" class="controls" value="搜索地点" onfocus='this.value=""'/>
-        <div id="mapContainer"></div>
+            <input id="pac-input" class="controls" type="text" placeholder="搜索地点">
+    <div id="map"></div>
+
       </div>
       <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">
         <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="add_dis_btn">新增描述</div>
-        <div class="cur_point">
-        当前坐标：<span id="s-point"></span>
-        </div>
       </div>
 
 
     </div>
   </div>
-<script src="http://webapi.amap.com/maps?v=1.4.0&amp;key=7248b17e6ab13a1ff72940dea4b221a2&callback=init"></script>
 
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzE9xAESye6Kde-3hT-6B90nfwUkcS8Yw&libraries=places&callback=initAutocomplete"
+ async defer></script>
 
 <!-- 增加描述对话框代码 -->
     <script type="text/javascript">
