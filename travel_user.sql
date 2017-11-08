@@ -31,6 +31,7 @@ CREATE TABLE IF NOT EXISTS description
     user_id INT NOT NULL,
     x DOUBLE NOT NULL,
     y DOUBLE NOT NULL,
+    place VARCHAR(600),
     visible INT DEFAULT '1' NOT NULL,
     content VARCHAR(600),
     movie VARCHAR(255) NOT NULL,
