@@ -8,3 +8,4 @@ CREATE TABLE IF NOT EXISTS user
 CREATE UNIQUE INDEX user_userid_uindex ON user (userid);
 CREATE UNIQUE INDEX user_username_uindex ON user (username);
 ALTER TABLE user COMMENT = '”√ªß';
+   
