@@ -107,3 +107,4 @@ public class LoginAction extends ActionSupport implements ServletRequestAware,
 		return "login";
 	}
 }
+
