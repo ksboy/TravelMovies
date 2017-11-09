@@ -81,7 +81,20 @@ public class Database {
 		}
 		return result;
 	}
-
+	
+	public static int DeleteDiscriptionById(String item_id) {
+		String sql = "DELETE FROM description WHERE item_id = ?";
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, item_id);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			
+		}
+		return result;
+	}
+	
 	public static ResultSet ReadDiscriptionUserId(String user_id, String visible) {
 		String sql = "SELECT * FROM description WHERE user_id = ? AND visible = ?";
 		ResultSet result = null;

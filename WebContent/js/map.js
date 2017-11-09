@@ -207,12 +207,27 @@ function read_discription_id(){
       console.log(dis);
     },
     error : function() {
-      SnackbarMsg("添加失败");
+      SnackbarMsg("读取描述失败");
     }
   })
 }
 
-
+function delete_discription_id(){
+  var item_id = $("#delete_dis_item_id").val();
+  $.ajax({
+    url : "delete_discription_id.action",
+    type : "POST",
+    data : {
+        item_id,
+    },
+    success : function() {
+      SnackbarMsg("删除成功");
+    },
+    error : function() {
+      SnackbarMsg("删除失败");
+    }
+  })
+}
 function SnackbarMsg(message){
   var MDCSnackbar = mdc.snackbar.MDCSnackbar;
   var MDCSnackbarFoundation = mdc.snackbar.MDCSnackbarFoundation;

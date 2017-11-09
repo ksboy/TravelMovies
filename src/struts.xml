@@ -19,5 +19,10 @@
             	<param name="root">result</param>
             </result>
 		</action>
+		<action name="delete_discription_id" class="com.travel.action.DeleteDiscriptionAction" method="DeleteDiscriptionById">
+			<result type="json">
+            	<param name="root">result</param>
+            </result>
+		</action>
 	</package>
 </struts>
