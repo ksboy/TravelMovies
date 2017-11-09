@@ -1,20 +1,62 @@
-// This example adds a search box to a map, using the Google Place Autocomplete
-// feature. People can enter geographical searches. The search box will return a
-// pick list containing a mix of places and predicted search terms.
+var markers = [];
+var map;
+var geocoder;
+var add_dis_listen_id;
+var infowindow;
 
-// This example requires the Places library. Include the libraries=places
-// parameter when you first load the API. For example:
-// <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+function add_discription_listener(event){
+  // Clear out the old markers.
+  markers.forEach(function(marker) {
+    marker.setMap(null);
+  });
+  markers = [];
+  // Create a marker for each place.
+  markers.push(new google.maps.Marker({
+    map: map,
+    position: event.latLng
+  }));
+
+  markers.forEach(function(marker) {
+    marker.setMap(map);
+  });
+
+  $("#dis_x").val(event.latLng.lng());
+  $("#dis_y").val(event.latLng.lat());
+  geocoder.geocode({
+    'latLng' : event.latLng
+  }, function(results, status) {
+    if (status == google.maps.GeocoderStatus.OK){
+      if(results[0]){
+        console.log(results);
+        $("#dis_place").val(results[0].formatted_address);
+      }
+    } else {
+       console.log("错误: 可能达到GoogleMaps地址编码API请求今日2500次限额");
+    }
+  });
+}
+
+function add_discription_mode(){
+  // 按下鼠标获取地理坐标和地址
+  add_dis_listen_id = map.addListener('mousedown', add_discription_listener, false);
+}
+
+function exit_discription_mode(){
+  try{
+    add_dis_listen_id.remove();
+  } catch(err){
+
+  }
+}
 
 function initAutocomplete() {
-  var map = new google.maps.Map(document.getElementById('map'), {
+  map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -33.8688, lng: 151.2195},
     zoom: 13,
     mapTypeId: 'roadmap'
   });
-
-  var geocoder = new google.maps.Geocoder();
-
+  infowindow = new google.maps.InfoWindow(); 
+  geocoder = new google.maps.Geocoder();
   // Create the search box and link it to the UI element.
   var input = document.getElementById('pac-input');
   var searchBox = new google.maps.places.SearchBox(input);
@@ -24,26 +66,8 @@ function initAutocomplete() {
   map.addListener('bounds_changed', function() {
     searchBox.setBounds(map.getBounds());
   });
-  
-  // 按下鼠标获取地理坐标和地址
-  map.addListener('mousedown', function(event) {
-    $("#dis_x").val(event.latLng.lng());
-    $("#dis_y").val(event.latLng.lat());
-    geocoder.geocode({
-      'latLng' : event.latLng
-    }, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK){
-        if(results[0]){
-          console.log(results);
-          $("#dis_place").val(results[0].formatted_address);
-        }
-      } else {
-         console.log("错误: 可能达到GoogleMaps地址编码API请求今日2500次限额");
-      }
-    });
-  });
 
-  var markers = [];
+
   // Listen for the event fired when the user selects a prediction and retrieve
   // more details for that place.
   searchBox.addListener('places_changed', function() {
@@ -93,7 +117,7 @@ function initAutocomplete() {
   });
 }
 
-function add_discrption(){
+function add_discription(){
   var user_id = $("#dis_user_id").val();
   var x = $("#dis_x").val();
   var y = $("#dis_y").val();
@@ -118,10 +142,83 @@ function add_discrption(){
         tags,
     },
     success : function() {
-      console.log("添加成功");
+      SnackbarMsg("添加成功");
     },
     error : function() {
-      console.log("添加失败");
+      SnackbarMsg("添加失败");
     }
   })
+}
+
+function read_discription_id(){
+  var user_id = 1;
+  var visible = 1;
+  var dis;
+  $.ajax({
+    url : "read_discription_id.action",
+    type : "POST",
+    data : {
+        user_id,
+        visible,
+    },
+    success : function(data) {
+      dis = JSON.parse(data);
+      // Clear out the old markers.
+      markers.forEach(function(marker) {
+        marker.setMap(null);
+      });
+      markers = [];
+
+      for(var i = 0; i < dis.dis.length; i++){
+        // Create a marker for each place.
+        var marker = new google.maps.Marker({
+          map: map,
+          position: {lat: dis.dis[i].y*1, lng: dis.dis[i].x*1},
+          title: dis.dis[i].place,
+        });
+
+        markers.push(marker);
+
+        var contentString = "<p>"+
+        dis.dis[i].item_id + " " +
+        dis.dis[i].content + " " +
+        dis.dis[i].movie + " " +
+        dis.dis[i].place + " " +
+        dis.dis[i].tags + " " +
+        dis.dis[i].thoughts + " " +
+        dis.dis[i].user_id + " " +
+        dis.dis[i].visible + " " +
+        dis.dis[i].y + " " +
+        dis.dis[i].x + " ";
+
+        google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow){
+          return function(){
+            infowindow.setContent(contentString);
+            infowindow.open(map, marker);
+          };
+        })(marker, contentString, infowindow));
+      }
+
+      markers.forEach(function(marker) {
+        marker.setMap(map);
+      });
+
+      console.log(markers);
+      console.log(dis);
+    },
+    error : function() {
+      SnackbarMsg("添加失败");
+    }
+  })
+}
+
+
+function SnackbarMsg(message){
+  var MDCSnackbar = mdc.snackbar.MDCSnackbar;
+  var MDCSnackbarFoundation = mdc.snackbar.MDCSnackbarFoundation;
+  var snackbar = new MDCSnackbar(document.querySelector('.mdc-snackbar'));
+  var data = {
+    message
+  };
+  snackbar.show(data);
 }

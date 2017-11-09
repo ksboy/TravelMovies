@@ -9,7 +9,6 @@ public class Database {
 	static final String PASS = "1q2w3e4r";
 
 	static Connection conn = null;
-	static Statement stmt = null;
 	static PreparedStatement pstmt = null; 
 	
 	/** 连接数据库
@@ -63,7 +62,7 @@ public class Database {
 	}
 	
 	public static int AddDiscription(String user_id, String x, String y, String place, String visible, String content, String movie, String thoughts, String tags) {
-		String sql = "INSERT INTO description (user_id, x, y, place, visible, content, movie, thoughts, tags) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO description (user_id, x, y, place, visible, content, movie, thoughts, tags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		int result = 0;
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -83,4 +82,17 @@ public class Database {
 		return result;
 	}
 
+	public static ResultSet ReadDiscriptionUserId(String user_id, String visible) {
+		String sql = "SELECT * FROM description WHERE user_id = ? AND visible = ?";
+		ResultSet result = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			pstmt.setString(2, visible);
+			result = pstmt.executeQuery();
+		} catch (SQLException e) {
+		
+		}
+		return result;
+	}
 }

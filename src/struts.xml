@@ -14,5 +14,10 @@
             	<param name="root">result</param>
             </result>
 		</action>
+		<action name="read_discription_id" class="com.travel.action.ReadDiscriptionAction" method="ReadDiscriptionUserId">
+			<result type="json">
+            	<param name="root">result</param>
+            </result>
+		</action>
 	</package>
 </struts>

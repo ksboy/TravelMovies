@@ -12,13 +12,6 @@ public class AddDiscriptionAction extends ActionSupport {
 	private String y;
 	private String place;
 	private String visible;
-	
-	public String getPlace() {
-		return place;
-	}
-	public void setPlace(String place) {
-		this.place = place;
-	}
 	private String content;
 	private String movie;
 	private String thoughts;
@@ -90,5 +83,11 @@ public class AddDiscriptionAction extends ActionSupport {
 	}
 	public void setTags(String tags) {
 		this.tags = tags;
+	}
+	public String getPlace() {
+		return place;
+	}
+	public void setPlace(String place) {
+		this.place = place;
 	}
 }
