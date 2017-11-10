@@ -10,6 +10,7 @@ public class AddDiscriptionAction extends ActionSupport {
 	private String user_id;
 	private String x;
 	private String y;
+	private String place;
 	private String visible;
 	private String content;
 	private String movie;
@@ -19,7 +20,7 @@ public class AddDiscriptionAction extends ActionSupport {
 	public String AddDiscription() {
 		Database.Connect();
 		JSONObject rsjson = new JSONObject();
-		int affectedItemNum = Database.AddDiscription(user_id, x, y, visible, content, movie, thoughts, tags);
+		int affectedItemNum = Database.AddDiscription(user_id, x, y, place, visible, content, movie, thoughts, tags);
 		rsjson.put("result", affectedItemNum);
 		result = JSONObject.fromObject(rsjson).toString();
 		Database.Close();
@@ -82,5 +83,11 @@ public class AddDiscriptionAction extends ActionSupport {
 	}
 	public void setTags(String tags) {
 		this.tags = tags;
+	}
+	public String getPlace() {
+		return place;
+	}
+	public void setPlace(String place) {
+		this.place = place;
 	}
 }
