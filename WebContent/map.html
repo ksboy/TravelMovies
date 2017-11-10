@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>首页</title>
+
+ <script type="text/javascript" src="https://webapi.amap.com/demos/js/liteToolbar.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+  <link rel="stylesheet" href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css">
+  <link rel="stylesheet" href="css/material-components-web.css"/>
+  <link rel="stylesheet" href="css/map.css"/>
+  <script type="text/javascript" src="js/map.js"></script>
+  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="js/material-components-web.js"></script>
+  </head>
+  <body>
+  
+<!-- 增加描述对话框 -->
+    <aside id="add-discription-mdc-dialog"
+    class="mdc-dialog"
+    role="alertdialog"
+    aria-labelledby="add-discription-mdc-dialog-label"
+    aria-describedby="add-discription-mdc-dialog-description" style="z-index: 111">
+    <!-- z-index 的值是根据高德地图的小窗框试出来的 -->
+    <div class="mdc-dialog__surface">
+    <header class="mdc-dialog__header">
+    <h2 id="add-discription-mdc-dialog-label" class="mdc-dialog__header__title">
+    新增描述
+    </h2>
+    </header>
+    <section id="add-discription-mdc-dialog-description" class="mdc-dialog__body">
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_user_id" required>
+            <label for="dis_user_id" class="mdc-textfield__label">用户ID</label>
+        </div>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_x" value="0" required>
+            <label for="dis_x" class="mdc-textfield__label">x坐标</label>
+        </div>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_y" value="0" required>
+            <label for="dis_y" class="mdc-textfield__label">y坐标</label>
+        </div>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_place" value="无" required>
+            <label for="dis_place" class="mdc-textfield__label">地点</label>
+        </div>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_visible" value="1" required>
+            <label for="dis_visible" class="mdc-textfield__label">是否可见(1/0)</label>
+        </div>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_content">
+            <label for="dis_content" class="mdc-textfield__label">情节</label>
+        </div>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_movie" required>
+            <label for="dis_movie" class="mdc-textfield__label">电影名</label>
+        </div>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_thoughts">
+            <label for="dis_thoughts" class="mdc-textfield__label">感想</label>
+        </div>
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_tags">
+            <label for="dis_tags" class="mdc-textfield__label">标签(以|分隔)</label>
+        </div>
+    </section>
+    <footer class="mdc-dialog__footer">
+    <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">取消</button>
+    <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">确定</button>
+    </footer>
+    </div>
+    <div class="mdc-dialog__backdrop"></div>
+    </aside>
+<!-- 增加描述对话框 -->
+
+
+
+    <header class="mdc-toolbar mdc-toolbar--fixed">
+        <div class="mdc-toolbar__row">
+            <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+              <a class="mdc-toobar__tilte-link" href="/">
+                  <span class="mdc-toolbar__title">跟着电影去旅行</span>
+                </a>
+            </section>
+            <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
+                <a href="/" class="material-icons mdc-toolbar__icon" aria-label="Home">home</a>
+                <a href="#" class="material-icons mdc-toolbar__icon" aria-label="info">info</a>
+            </section>
+        </div>
+    </header>
+
+  
+  <div class="mdc-toolbar-fixed-adjust"></div>
+
+  <div style="height: 100%">
+    <div class="mdc-layout-grid__inner" style="height: 100%">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-10">
+        <input id="pac-input" class="controls" type="text" placeholder="搜索地点">
+        <div id="map"></div>
+      </div>
+
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-2">
+        <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="add_dis_mode_btn" onclick="add_discription_mode()">进入新增描述模式</div>
+
+        <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="exit_dis_mode_btn" onclick="exit_discription_mode()">退出新增描述模式</div>
+
+        <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="add_dis_btn">新增描述</div>
+
+        <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="read_dis_btn" onclick="read_discription_id()">读取1号用户的描述</div>
+
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+          <input type="text" class="mdc-textfield__input" id="delete_dis_item_id">
+          <label for="delete_dis_item_id" class="mdc-textfield__label">删除描述item_id</label>
+        </div>
+
+        <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="delete_dis_btn" onclick="delete_discription_id()">删除描述</div>
+      </div>
+
+
+    </div>
+  </div>
+<div id="mdc-snackbar" class="mdc-snackbar demo-hidden" aria-live="assertive" aria-atomic="true" aria-hidden="true">
+  <div class="mdc-snackbar__text">Message</div>
+  <div class="mdc-snackbar__action-wrapper">
+    <button type="button" class="mdc-snackbar__action-button" aria-hidden="true">Action</button>
+  </div>
+</div>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzE9xAESye6Kde-3hT-6B90nfwUkcS8Yw&libraries=places&callback=initAutocomplete"
+ async defer></script>
+
+<!-- 增加描述对话框代码 -->
+    <script type="text/javascript">
+      (function() {
+      var MDCDialog = mdc.dialog.MDCDialog;
+        var MDCDialogFoundation = mdc.dialog.MDCDialogFoundation;
+        var util = mdc.dialog.util;
+        var addialog = new mdc.dialog.MDCDialog(document.querySelector('#add-discription-mdc-dialog'));
+
+        addialog.listen('MDCDialog:accept', function() {
+        	add_discrption();
+        })
+
+        addialog.listen('MDCDialog:cancel', function() {
+        })
+        document.querySelector('#add_dis_btn').addEventListener('click', function (evt) {
+          addialog.lastFocusedTarget = evt.target;
+          addialog.show();
+        })
+      })();
+    </script>
+<!-- 增加描述对话框代码 -->
+<script type="text/javascript">mdc.autoInit(document, () => {});</script>
+
+  </body>
+</html>
