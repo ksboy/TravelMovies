@@ -4,7 +4,7 @@
 <struts>
 	<constant name="struts.action.extension" value="action"/>
 	<package name="com.travel.action" extends="json-default">
-		<action name="login" class="com.travel.action.LoginAction">
+		<action name="login1" class="com.travel.action.LoginAction">
 			<result name="success" type="redirect">/success.jsp</result>
 			<result name="fail">/fail.jsp </result>
 			<result name="login">/login.jsp </result>
@@ -24,5 +24,15 @@
             	<param name="root">result</param>
             </result>
 		</action>
+		<action name="signup" class="com.travel.action.Signup" method="execute">
+			<result type="json">
+            	<param name="root">result</param>
+            </result>
+        </action>
+        <action name="login" class="com.travel.action.Login" method="execute">
+        	<result type="json">
+            	<param name="root">result</param>
+            </result>
+        </action>
 	</package>
 </struts>
