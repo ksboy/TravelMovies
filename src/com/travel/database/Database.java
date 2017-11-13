@@ -1,7 +1,8 @@
 package com.travel.database;
 
 import java.sql.*;
-import java.util.Date;
+import java.util.ArrayList;
+
 public class Database {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost:3306/travel";
@@ -44,9 +45,34 @@ public class Database {
 			e.printStackTrace();
 		}
 	}
+	public static boolean signup(ArrayList<String> message){
+	   String sql = "INSERT INTO user(name, password, nickname,question,answer,age,gender, birth_date,bio,tags)values(?,?,?,?,?,?,?,?,?,?)"; 
+       try{
+	    pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1,message.get(0));
+        pstmt.setString(2,message.get(1));
+        pstmt.setString(3,message.get(2));
+        pstmt.setString(4,message.get(3));
+        pstmt.setString(5,message.get(4));
+        pstmt.setString(6,message.get(5));
+        pstmt.setString(7,message.get(6));
+        pstmt.setString(8,message.get(7));
+        pstmt.setString(9,message.get(8));
+        pstmt.setString(10,message.get(9));
+        int result = pstmt.executeUpdate();
+        if(result == 0) return false;
+        else return true;
+       }catch(Exception e) {  
+        System.out.print("get data error!");  
+        e.printStackTrace();  
+       }
+	    
+	    return false;
+	    
+	}
 	
 	public static boolean checkUser(String username, String password) {
-		String sql = "SELECT * FROM user WHERE username = ?";
+		String sql = "SELECT * FROM user WHERE name = ?";
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -106,28 +132,6 @@ public class Database {
 			result = pstmt.executeQuery();
 		} catch (SQLException e) {
 		
-		}
-		return result;
-	}
-	
-	public static int InsertUser(String name,String nickname,String question,String answer,String password,String age,String gender,String date,String bio,String tags){
-		String sql = "INSERT INTO user (name, nickname, question, answer, password, age, gender, birth_date, bio, tags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		int result = 0;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, name);
-			pstmt.setString(2, nickname);
-			pstmt.setString(3, question);
-			pstmt.setString(4, answer);
-			pstmt.setString(5, password);
-			pstmt.setString(6, age);
-			pstmt.setString(7, gender);
-			pstmt.setString(8, date);
-			pstmt.setString(9, bio);
-			pstmt.setString(10, tags);
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			
 		}
 		return result;
 	}
