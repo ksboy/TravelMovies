@@ -24,5 +24,10 @@
             	<param name="root">result</param>
             </result>
 		</action>
+		<action name="sign_up" class="com.travel.action.SignupAction"  method="InsertUser">
+            <result name="success">map.html</result>
+            <result name="error">login.html</result>
+      </action>
+      
 	</package>
 </struts>

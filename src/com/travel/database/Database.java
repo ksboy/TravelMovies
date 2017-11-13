@@ -1,6 +1,7 @@
 package com.travel.database;
 
 import java.sql.*;
+import java.util.Date;
 public class Database {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost:3306/travel";
@@ -105,6 +106,28 @@ public class Database {
 			result = pstmt.executeQuery();
 		} catch (SQLException e) {
 		
+		}
+		return result;
+	}
+	
+	public static int InsertUser(String name,String nickname,String question,String answer,String password,String age,String gender,String date,String bio,String tags){
+		String sql = "INSERT INTO user (name, nickname, question, answer, password, age, gender, birth_date, bio, tags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, nickname);
+			pstmt.setString(3, question);
+			pstmt.setString(4, answer);
+			pstmt.setString(5, password);
+			pstmt.setString(6, age);
+			pstmt.setString(7, gender);
+			pstmt.setString(8, date);
+			pstmt.setString(9, bio);
+			pstmt.setString(10, tags);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			
 		}
 		return result;
 	}

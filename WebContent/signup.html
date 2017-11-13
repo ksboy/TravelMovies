@@ -32,76 +32,76 @@
                   <div id="signup">
                       <h2>注册</h2>
                       <section class="mdc-card__supporting-text">
-                          <form>
+                          <form action="sign_up" method="post" role="form">
                               <section class="mdc-form-field max_width">
                                   <div class="mdc-textfield max_width" data-mdc-auto-init="MDCTextfield">
-                                      <input type="text" class="mdc-textfield__input" id="susername" autocomplete="username" name="username" required>
-                                      <label for="susername" class="mdc-textfield__label">用户名</label>
+                                      <input type="text" class="mdc-textfield__input" id="name" autocomplete="name" name="name" required>
+                                      <label for="name" class="mdc-textfield__label">用户名</label>
                                   </div>
                               </section>
                               <section class="mdc-form-field max_width">
                                   <div class="mdc-textfield max_width" data-mdc-auto-init="MDCTextfield">
-                                      <input type="password" class="mdc-textfield__input" id="spassword" autocomplete="password" name="password" required>
-                                      <label for="spassword" class="mdc-textfield__label">密码</label>
+                                      <input type="text" class="mdc-textfield__input" id="password" autocomplete="password" name="password" required>
+                                      <label for="password" class="mdc-textfield__label">密码</label>
                                   </div>
                               </section>
                                <section class="mdc-form-field max_width">
                                   <div class="mdc-textfield max_width" data-mdc-auto-init="MDCTextfield">
-                                      <input type="password" class="mdc-textfield__input" id="spassword" autocomplete="password" name="password" required>
-                                      <label for="spassword" class="mdc-textfield__label">昵称</label>
+                                      <input type="text" class="mdc-textfield__input" id="nickname" autocomplete="nickname" name="nickname" required>
+                                      <label for="nickname" class="mdc-textfield__label">昵称</label>
                                   </div>
                               </section>
                                <section class="mdc-form-field max_width">
                                   <div class="mdc-textfield max_width" data-mdc-auto-init="MDCTextfield">
-                                      <input type="password" class="mdc-textfield__input" id="spassword" autocomplete="password" name="password" required>
-                                      <label for="spassword" class="mdc-textfield__label">密保问题</label>
+                                      <input type="text" class="mdc-textfield__input" id="question" autocomplete="question" name="question" required>
+                                      <label for="question" class="mdc-textfield__label">密保问题</label>
                                   </div>
                               </section>
                                <section class="mdc-form-field max_width">
                                   <div class="mdc-textfield max_width" data-mdc-auto-init="MDCTextfield">
-                                      <input type="password" class="mdc-textfield__input" id="spassword" autocomplete="password" name="password" required>
-                                      <label for="spassword" class="mdc-textfield__label">问题答案</label>
+                                      <input type="text" class="mdc-textfield__input" id="answer" autocomplete="answer" name="answer" required>
+                                      <label for="answer" class="mdc-textfield__label">问题答案</label>
                                   </div>
                               </section>
                               <section class="mdc-form-field max_width">
                                   <div class="mdc-textfield max_width" data-mdc-auto-init="MDCTextfield">
-                                      <input type="password" class="mdc-textfield__input" id="spassword" autocomplete="password" name="password">
-                                      <label for="spassword" class="mdc-textfield__label">年龄</label>
+                                      <input type="text" class="mdc-textfield__input" id="age" autocomplete="age" name="age">
+                                      <label for="age" class="mdc-textfield__label">年龄</label>
                                   </div>
                               </section>
                               <section class="mdc-form-field max_width">
                                   <div class="mdc-textfield max_width" data-mdc-auto-init="MDCTextfield">
-                                      <input type="password" class="mdc-textfield__input" id="spassword" autocomplete="password" name="password">
-                                      <label for="spassword" class="mdc-textfield__label">性别</label>
+                                      <input type="text" class="mdc-textfield__input" id="gender" autocomplete="gender" name="gender">
+                                      <label for="gender" class="mdc-textfield__label">性别</label>
                                   </div>
                               </section>
                               <section class="mdc-form-field max_width">
                                   <div class="mdc-textfield max_width" data-mdc-auto-init="MDCTextfield">
-                                      <input type="password" class="mdc-textfield__input" id="spassword" autocomplete="password" name="password">
-                                      <label for="spassword" class="mdc-textfield__label">出生日期</label>
+                                      <input type="text" class="mdc-textfield__input" id="birth_date" autocomplete="birth_date" name="birth_date">
+                                      <label for="birth_date" class="mdc-textfield__label">出生日期</label>
                                   </div>
                               </section>
                               <section class="mdc-form-field max_width">
                                   <div class="mdc-textfield max_width" data-mdc-auto-init="MDCTextfield">
-                                      <input type="password" class="mdc-textfield__input" id="spassword" autocomplete="password" name="password">
-                                      <label for="spassword" class="mdc-textfield__label">简介</label>
+                                      <input type="text" class="mdc-textfield__input" id="bio" autocomplete="bio" name="bio">
+                                      <label for="bio" class="mdc-textfield__label">简介</label>
                                   </div>
                               </section>
                               <section class="mdc-form-field max_width">
                                   <div class="mdc-textfield max_width" data-mdc-auto-init="MDCTextfield">
-                                      <input type="password" class="mdc-textfield__input" id="spassword" autocomplete="password" name="password">
-                                      <label for="spassword" class="mdc-textfield__label">标签</label>
+                                      <input type="text" class="mdc-textfield__input" id="tags" autocomplete="tags" name="tags">
+                                      <label for="tags" class="mdc-textfield__label">标签</label>
                                   </div>
                               </section>
+                              <input type="submit" class="mdc-card__action" style="text-align: right" value="下一步"/>
                           </form>
                       </section>
-                      <section class="mdc-card__action" style="text-align: right">
-                          <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple">
+                      <!-- <section class="mdc-card__action" style="text-align: right">
+                          <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" href="map.html">
                               <span>下一步</span>
                           </div>
-                      </section>
+                      </section> -->
                   </div>
-
             </div>
         </section>
       </div>
