@@ -1,6 +1,8 @@
 package com.travel.database;
 
 import java.sql.*;
+import java.util.ArrayList;
+
 public class Database {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost:3306/travel";
@@ -42,6 +44,34 @@ public class Database {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	public static boolean signup(ArrayList<String> message){
+ 
+	    String sql = "INSERT INTO user(name, password, nickname,question,answer,age,gender, birth_date,bio,tags)values(?,?,?,?,?,?,?,?,?,?)"; 
+       try{
+	    pstmt = conn.prepareStatement(sql);
+        pstmt.setString(1,message.get(0));
+        pstmt.setString(2,message.get(1));
+        pstmt.setString(3,message.get(2));
+        pstmt.setString(4,message.get(3));
+        pstmt.setString(5,message.get(4));
+        pstmt.setString(6,message.get(5));
+        pstmt.setString(7,message.get(6));
+        pstmt.setString(8,message.get(7));
+        pstmt.setString(9,message.get(8));
+        pstmt.setString(10,message.get(9));
+        //System.out.print(message.get(0));
+      System.out.print("sss");
+        int result = pstmt.executeUpdate();
+        if(result == 0) return false;
+        else return true;
+       }catch(Exception e) {  
+        System.out.print("get data error!");  
+        e.printStackTrace();  
+       }
+	    
+	    return false;
+	    
 	}
 	
 	public static boolean checkUser(String username, String password) {
