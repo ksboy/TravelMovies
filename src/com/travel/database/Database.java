@@ -59,8 +59,6 @@ public class Database {
         pstmt.setString(8,message.get(7));
         pstmt.setString(9,message.get(8));
         pstmt.setString(10,message.get(9));
-        //System.out.print(message.get(0));
-      System.out.print("sss");
         int result = pstmt.executeUpdate();
         if(result == 0) return false;
         else return true;

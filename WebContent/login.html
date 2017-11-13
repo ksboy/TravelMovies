@@ -48,7 +48,7 @@
                       </form>
                   </section>
                   <section class="mdc-card__action" style="text-align: right">
-                      <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple">
+                      <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" onclick="loginPost()">
                           <span>下一步</span>
                       </div>
                   </section>
@@ -59,7 +59,47 @@
       </div>
     </div>
   </div>
+   <div id="mdc-snackbar" class="mdc-snackbar demo-hidden" aria-live="assertive" aria-atomic="true" aria-hidden="true">
+  <div class="mdc-snackbar__text">Message</div>
+  <div class="mdc-snackbar__action-wrapper">
+    <button type="button" class="mdc-snackbar__action-button" aria-hidden="true">Action</button>
+  </div>
+</div>
+
     <script type="text/javascript" src="js/material-components-web.js"></script>
     <script type="text/javascript">mdc.autoInit()</script>
+
+        <script type="text/javascript">
+      function loginPost(){
+        var name = $("#name").val();
+        var password = $("#password").val();
+        $.ajax({
+            url : "login.action",
+            type : "POST",
+            data : {
+                name,
+                password
+            },
+            success : function() {
+              SnackbarMsg("登陆成功，即将跳转到主页");
+              setTimeout(function(){ window.location.href = "map.html"; }, 3000);
+            },
+            error : function() {
+              SnackbarMsg("账号或密码错误");
+            }
+        })
+
+      }
+
+      function SnackbarMsg(message){
+        var MDCSnackbar = mdc.snackbar.MDCSnackbar;
+        var MDCSnackbarFoundation = mdc.snackbar.MDCSnackbarFoundation;
+        var snackbar = new MDCSnackbar(document.querySelector('.mdc-snackbar'));
+        var data = {
+          message
+        };
+        snackbar.show(data);
+      }
+    </script>
 </body>
 </html>
