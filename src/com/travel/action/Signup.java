@@ -6,6 +6,8 @@ import org.apache.struts2.ServletActionContext;
 
 import com.travel.database.Database;
 
+import net.sf.json.JSONObject;
+
 
 public class Signup {
   private String id;
@@ -21,11 +23,13 @@ public class Signup {
   private String bio;
   private String tags;
   private boolean userCookie;
+  private String result;
   
   public String execute() throws Exception { 
       ArrayList<String> tit = new ArrayList<String>() ;
       //tit.add(id);
 	  Database.Connect();
+	  JSONObject rsjson = new JSONObject();
       tit.add(name);
       tit.add(password);
       tit.add(nickname);
@@ -39,6 +43,7 @@ public class Signup {
       tit.add(tags);
       //System.out.print(name);
       boolean flag =Database.signup(tit);
+      rsjson.put("result", flag);
 	  Database.Close();
       if(flag) return "success";
       else return "error";
@@ -129,6 +134,12 @@ public boolean isUserCookie() {
 }
 public void setUserCookie(boolean userCookie) {
     this.userCookie = userCookie;
+}
+public String getResult() {
+	return result;
+}
+public void setResult(String result) {
+	this.result = result;
 }
 
 }

@@ -149,7 +149,7 @@
               setTimeout(function(){ window.location.href = "login.html"; }, 3000);
             },
             error : function() {
-              SnackbarMsg("注册失败");
+              SnackbarMsg("注册失败，用户名或昵称已被注册");
             }
         })
 

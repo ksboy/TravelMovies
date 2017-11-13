@@ -72,7 +72,7 @@ public class Database {
 	}
 	
 	public static boolean checkUser(String username, String password) {
-		String sql = "SELECT * FROM user WHERE username = ?";
+		String sql = "SELECT * FROM user WHERE name = ?";
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
