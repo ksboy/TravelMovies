@@ -23,11 +23,11 @@ import com.travel.utils.CookieUtils;
 import com.travel.database.Database;
 
 public class SignupAction extends ActionSupport{
-//	private static final long serialVersionUID = -3220291143111112470L;
-//	public static final String USER_SESSION = "user.session";
-//	private HttpServletResponse response;
-//	private HttpServletRequest request;
-//	private Map<String, Object> session;
+	private static final long serialVersionUID = -3220291143111112470L;
+	public static final String USER_SESSION = "user.session";
+	private HttpServletResponse response;
+	private HttpServletRequest request;
+	private Map<String, Object> session;
 	
 	private Database db;
 	
@@ -55,14 +55,14 @@ public class SignupAction extends ActionSupport{
 //	private String question;
 //	private String answer;
 //	private String avartar;
-//	private int age;
-//	private int gender;
-//	private Date birth_date;
+//	private String age;
+//	private String gender;
+//	private String birth_date;
 //	private String bio;
 //	private String tags;
 //	private boolean userCookie;
-	
-
+//	
+//
 //	public boolean isUserCookie() {
 //		return userCookie;
 //	}
@@ -82,7 +82,7 @@ public class SignupAction extends ActionSupport{
 //	public void setSession(Map<String, Object> session) {
 //		this.session = session;
 //	}
-	
+//	
 //	public String getName() {
 //		return name;
 //	}
@@ -123,27 +123,27 @@ public class SignupAction extends ActionSupport{
 //		this.answer = answer;
 //	}
 //
-//	public int getAge() {
+//	public String getAge() {
 //		return age;
 //	}
 //
-//	public void setAge(int age) {
+//	public void setAge(String age) {
 //		this.age = age;
 //	}
 //
-//	public int getGender() {
+//	public String getGender() {
 //		return gender;
 //	}
 //	
-//	public void setGender(int gender) {
+//	public void setGender(String gender) {
 //		this.gender = gender;
 //	}
 //	
-//	public Date getBirth_date() {
+//	public String getBirth_date() {
 //		return birth_date;
 //	}
 //
-//	public void setBirth_date(Date birth_date) {
+//	public void setBirth_date(String birth_date) {
 //		this.birth_date = birth_date;
 //	}
 //
@@ -173,11 +173,13 @@ public class SignupAction extends ActionSupport{
     	String password=request.getParameter("password");
     	String age=request.getParameter("age");
     	String gender=request.getParameter("gender");
-    	String birth_date=request.getParameter("birth_data");
+    	String birth_date=request.getParameter("birth_date");
     	String bio=request.getParameter("bio");
     	String tags=request.getParameter("tags");
-	
-    	System.out.println(nickname );
+	    
+    	System.out.println(name);
+    	System.out.println(nickname);
+    	System.out.println(password);
 //    	int result=Database.InsertUser(getName().trim(), getNickname().trim(), getQuestion().trim(), getAnswer().trim(), 
 //    			getPassword().trim(), getAge(), getGender(), getBirth_date(), getBio().trim(), getTags().trim());
     	

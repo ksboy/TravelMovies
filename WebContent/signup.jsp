@@ -1,4 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+   pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html>
+
 <html lang="zh">
 <head>
     <meta charset="utf-8">
@@ -29,10 +33,11 @@
                       <i class="material-icons mdc-tab__icon" aria-label="SignUp">person_add</i>
                   </a>
               </nav>
+                  
                   <div id="signup">
                       <h2>注册</h2>
                       <section class="mdc-card__supporting-text">
-                          <form action="sign_up" method="post" role="form">
+                          <form action="signup.action" method="post" role="form">
                               <section class="mdc-form-field max_width">
                                   <div class="mdc-textfield max_width" data-mdc-auto-init="MDCTextfield">
                                       <input type="text" class="mdc-textfield__input" id="name" autocomplete="name" name="name" required>
@@ -93,14 +98,12 @@
                                       <label for="tags" class="mdc-textfield__label">标签</label>
                                   </div>
                               </section>
-                              <input type="submit" class="mdc-card__action" style="text-align: right" value="下一步"/>
+                              <section class="mdc-card__action" style="text-align: right">
+                                  <input type="submit" class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" style="text-align: right" value="下一步"/>
+		                      </section>
                           </form>
                       </section>
-                      <!-- <section class="mdc-card__action" style="text-align: right">
-                          <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" href="map.html">
-                              <span>下一步</span>
-                          </div>
-                      </section> -->
+                      
                   </div>
             </div>
         </section>
