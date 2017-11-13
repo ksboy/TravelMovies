@@ -37,7 +37,6 @@
                   <div id="signup">
                       <h2>注册</h2>
                       <section class="mdc-card__supporting-text">
-                          <form action="signup.action" method="post" role="form">
                               <section class="mdc-form-field max_width">
                                   <div class="mdc-textfield max_width" data-mdc-auto-init="MDCTextfield">
                                       <input type="text" class="mdc-textfield__input" id="name" autocomplete="name" name="name" required>
@@ -99,9 +98,8 @@
                                   </div>
                               </section>
                               <section class="mdc-card__action" style="text-align: right">
-                                  <input type="submit" class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" style="text-align: right" value="下一步"/>
+                                  <input type="submit" class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" style="text-align: right" onclick="signupPost()" value="下一步"/>
 		                      </section>
-                          </form>
                       </section>
                       
                   </div>
@@ -110,7 +108,62 @@
       </div>
     </div>
   </div>
+
+  <div id="mdc-snackbar" class="mdc-snackbar demo-hidden" aria-live="assertive" aria-atomic="true" aria-hidden="true">
+  <div class="mdc-snackbar__text">Message</div>
+  <div class="mdc-snackbar__action-wrapper">
+    <button type="button" class="mdc-snackbar__action-button" aria-hidden="true">Action</button>
+  </div>
+</div>
+
     <script type="text/javascript" src="js/material-components-web.js"></script>
     <script type="text/javascript">mdc.autoInit()</script>
+
+        <script type="text/javascript">
+      function signupPost(){
+        var name = $("#name").val();
+        var password = $("#password").val();
+        var nickname = $("#nickname").val();
+        var question = $("#question").val();
+        var age = $("#age").val();
+        var gender = $("#gender").val();
+        var birth_date = $("#birth_date").val();
+        var bio = $("#bio").val();
+        var tags = $("#tags").val();
+        $.ajax({
+            url : "signup.action",
+            type : "POST",
+            data : {
+                name,
+                password,
+                nickname,
+                question,
+                age,
+                gender,
+                birth_date,
+                bio,
+                tags
+            },
+            success : function() {
+              SnackbarMsg("注册成功，即将跳转到登陆页");
+              setTimeout(function(){ window.location.href = "login.html"; }, 3000);
+            },
+            error : function() {
+              SnackbarMsg("注册失败");
+            }
+        })
+
+      }
+
+      function SnackbarMsg(message){
+        var MDCSnackbar = mdc.snackbar.MDCSnackbar;
+        var MDCSnackbarFoundation = mdc.snackbar.MDCSnackbarFoundation;
+        var snackbar = new MDCSnackbar(document.querySelector('.mdc-snackbar'));
+        var data = {
+          message
+        };
+        snackbar.show(data);
+      }
+    </script>
 </body>
 </html>
