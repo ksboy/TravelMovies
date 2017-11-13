@@ -118,13 +118,13 @@
 
     <script type="text/javascript" src="js/material-components-web.js"></script>
     <script type="text/javascript">mdc.autoInit()</script>
-
-        <script type="text/javascript">
+    <script type="text/javascript">
       function signupPost(){
         var name = $("#name").val();
         var password = $("#password").val();
         var nickname = $("#nickname").val();
         var question = $("#question").val();
+        var answer = $("#answer").val();
         var age = $("#age").val();
         var gender = $("#gender").val();
         var birth_date = $("#birth_date").val();
@@ -138,6 +138,7 @@
                 password,
                 nickname,
                 question,
+                answer,
                 age,
                 gender,
                 birth_date,

@@ -41,7 +41,7 @@ public class Signup {
       tit.add(birth_date);
       tit.add(bio);
       tit.add(tags);
-      //System.out.print(name);
+      //System.out.print(tit);
       boolean flag =Database.signup(tit);
       rsjson.put("result", flag);
 	  Database.Close();
