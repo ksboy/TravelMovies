@@ -25,6 +25,7 @@ public class Signup {
   public String execute() throws Exception { 
       ArrayList<String> tit = new ArrayList<String>() ;
       //tit.add(id);
+	  Database.Connect();
       tit.add(name);
       tit.add(password);
       tit.add(nickname);
@@ -38,6 +39,7 @@ public class Signup {
       tit.add(tags);
       //System.out.print(name);
       boolean flag =Database.signup(tit);
+	  Database.Close();
       if(flag) return "success";
       else return "error";
      }

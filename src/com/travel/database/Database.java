@@ -46,8 +46,7 @@ public class Database {
 		}
 	}
 	public static boolean signup(ArrayList<String> message){
- 
-	    String sql = "INSERT INTO user(name, password, nickname,question,answer,age,gender, birth_date,bio,tags)values(?,?,?,?,?,?,?,?,?,?)"; 
+	   String sql = "INSERT INTO user(name, password, nickname,question,answer,age,gender, birth_date,bio,tags)values(?,?,?,?,?,?,?,?,?,?)"; 
        try{
 	    pstmt = conn.prepareStatement(sql);
         pstmt.setString(1,message.get(0));
