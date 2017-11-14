@@ -6,6 +6,7 @@
     <title>首页</title>
 
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Mono">
+  <link href=”https://fonts.googleapis.com/icon?family=Material+Icons” rel=”stylesheet”>
   <link rel="stylesheet" href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css">
   <link rel="stylesheet" href="css/material-components-web.css"/>
   <link rel="stylesheet" href="css/map.css"/>
@@ -86,7 +87,8 @@
             </section>
             <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
                 <a href="map.html" class="material-icons mdc-toolbar__icon" aria-label="Home">home</a>
-                <a href="login.html" class="material-icons mdc-toolbar__icon" aria-label="Login">person</a>
+                <a href="map.html" class="material-icons mdc-toolbar__icon" aria-label="logout">close
+                </a>
             </section>
         </div>
     </header>
@@ -139,7 +141,7 @@
         var addialog = new mdc.dialog.MDCDialog(document.querySelector('#add-discription-mdc-dialog'));
 
         addialog.listen('MDCDialog:accept', function() {
-        	add_discription();
+            add_discription();
         })
 
         addialog.listen('MDCDialog:cancel', function() {
