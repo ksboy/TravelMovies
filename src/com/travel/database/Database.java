@@ -71,21 +71,23 @@ public class Database {
 	    
 	}
 	
-	public static boolean checkUser(String username, String password) {
+	public static int checkUser(String username, String password) {
 		String sql = "SELECT * FROM user WHERE name = ?";
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, username);
+			int user_id ;
 			rs = pstmt.executeQuery();
 			rs.next();
 			if(rs.getString("password").equals(password)) {
-				return true;
+			   user_id= rs.getInt("id");
+				return user_id;
 			}
 		} catch (SQLException exception) {
 			exception.printStackTrace();
 		}
-		return false;
+		return -1;
 	}
 	
 	public static int AddDiscription(String user_id, String x, String y, String place, String visible, String content, String movie, String thoughts, String tags) {

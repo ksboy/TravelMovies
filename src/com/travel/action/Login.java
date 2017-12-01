@@ -2,6 +2,9 @@ package com.travel.action;
 
 import java.util.ArrayList;
 
+import org.apache.struts2.ServletActionContext;
+
+import com.opensymphony.xwork2.ActionContext;
 import com.travel.database.Database;
 
 import net.sf.json.JSONObject;
@@ -13,8 +16,13 @@ public class Login {
      
      public String execute() throws Exception { 
          Database.Connect();
+         boolean flag = false;
  		 JSONObject rsjson = new JSONObject();
-         boolean flag =Database.checkUser(name,password);
+ 		 int user_id= Database.checkUser(name,password);
+         if(user_id != -1) {
+             flag = true;
+             ActionContext.getContext().getSession().put("id", user_id);
+         }
          rsjson.put("result", flag);
  		 result = JSONObject.fromObject(rsjson).toString();
          Database.Close();

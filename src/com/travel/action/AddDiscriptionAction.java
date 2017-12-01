@@ -1,6 +1,8 @@
 package com.travel.action;
 
 import net.sf.json.JSONObject;
+
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.travel.database.Database;
 
@@ -20,6 +22,8 @@ public class AddDiscriptionAction extends ActionSupport {
 	public String AddDiscription() {
 		Database.Connect();
 		JSONObject rsjson = new JSONObject();
+		int id = (int)ActionContext.getContext().getSession().get("id");
+		System.out.println(id);
 		int affectedItemNum = Database.AddDiscription(user_id, x, y, place, visible, content, movie, thoughts, tags);
 		rsjson.put("result", affectedItemNum);
 		result = JSONObject.fromObject(rsjson).toString();
