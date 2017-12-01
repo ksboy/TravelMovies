@@ -23,7 +23,8 @@ public class AddDiscriptionAction extends ActionSupport {
 		Database.Connect();
 		JSONObject rsjson = new JSONObject();
 		int id = (int)ActionContext.getContext().getSession().get("id");
-		System.out.println(id);
+		user_id = String.valueOf(id);
+		//System.out.println(id);
 		int affectedItemNum = Database.AddDiscription(user_id, x, y, place, visible, content, movie, thoughts, tags);
 		rsjson.put("result", affectedItemNum);
 		result = JSONObject.fromObject(rsjson).toString();
