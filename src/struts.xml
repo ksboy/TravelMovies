@@ -34,5 +34,10 @@
             	<param name="root">result</param>
             </result>
         </action>
+        <action name="searchmovie" class="com.travel.action.SearchMovie" method="SearchMovieName">
+        	<result type="json">
+            	<param name="root">result</param>
+            </result>
+        </action>
 	</package>
 </struts>

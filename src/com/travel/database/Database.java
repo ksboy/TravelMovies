@@ -124,6 +124,19 @@ public class Database {
 		return result;
 	}
 	
+	public static ResultSet SearchMovie(String moviename) {
+		String sql = "SELECT * FROM description WHERE movie = ?";
+		ResultSet result = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, moviename);
+			result = pstmt.executeQuery();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	public static ResultSet ReadDiscriptionUserId(String user_id, String visible) {
 		String sql = "SELECT * FROM description WHERE user_id = ? AND visible = ?";
 		ResultSet result = null;
