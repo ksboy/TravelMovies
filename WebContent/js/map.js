@@ -237,3 +237,57 @@ function SnackbarMsg(message){
   };
   snackbar.show(data);
 }
+
+function searchMovie(movie){
+  $.ajax({
+    url : "searchmovie.action",
+    type : "POST",
+    data : {
+        movie
+    },
+    success : function(data) {
+      dis = JSON.parse(data);
+      markers.forEach(function(marker) {
+        marker.setMap(null);
+      });
+      markers = [];
+
+      for(var i = 0; i < dis.dis.length; i++){
+        // Create a marker for each place.
+        var marker = new google.maps.Marker({
+          map: map,
+          position: {lat: dis.dis[i].y*1, lng: dis.dis[i].x*1},
+          title: dis.dis[i].place,
+        });
+
+        markers.push(marker);
+
+        var contentString = "<p>"+
+        dis.dis[i].item_id + " " +
+        dis.dis[i].content + " " +
+        dis.dis[i].movie + " " +
+        dis.dis[i].place + " " +
+        dis.dis[i].tags + " " +
+        dis.dis[i].thoughts + " " +
+        dis.dis[i].user_id + " " +
+        dis.dis[i].visible + " " +
+        dis.dis[i].y + " " +
+        dis.dis[i].x + " ";
+
+        google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow){
+          return function(){
+            infowindow.setContent(contentString);
+            infowindow.open(map, marker);
+          };
+        })(marker, contentString, infowindow));
+      }
+
+      markers.forEach(function(marker) {
+        marker.setMap(map);
+      });
+    },
+    error : function() {
+      SnackbarMsg("查询失败");
+    }
+  })
+}

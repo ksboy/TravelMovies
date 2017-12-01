@@ -84,6 +84,7 @@
                   <span class="mdc-toolbar__title">跟着电影去旅行</span>
                 </a>
             </section>
+            <input id="searchmoviename" class="controls" type="text" placeholder="搜索电影名称">
             <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
                 <a href="map.html" class="material-icons mdc-toolbar__icon" aria-label="Home">home</a>
                 <a href="login.html" class="material-icons mdc-toolbar__icon" aria-label="Login">person</a>
@@ -127,7 +128,7 @@
     <button type="button" class="mdc-snackbar__action-button" aria-hidden="true">Action</button>
   </div>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzE9xAESye6Kde-3hT-6B90nfwUkcS8Yw&libraries=places&callback=initAutocomplete"
+<script src="http://maps.google.cn/maps/api/js?key=AIzaSyBzE9xAESye6Kde-3hT-6B90nfwUkcS8Yw&libraries=places&callback=initAutocomplete"
  async defer></script>
 
 <!-- 增加描述对话框代码 -->
@@ -152,6 +153,14 @@
     </script>
 <!-- 增加描述对话框代码 -->
 <script type="text/javascript">mdc.autoInit(document, () => {});</script>
-
+<script type="text/javascript">
+  $(function (){
+  $('#searchmoviename').bind('keypress', function(event){
+    if(event.keyCode == "13"){
+      searchMovie($('#searchmoviename').val());
+    }
+  });
+});
+</script>
   </body>
 </html>
