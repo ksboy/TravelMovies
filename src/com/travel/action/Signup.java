@@ -1,3 +1,4 @@
+
 package com.travel.action;
 
 import java.util.ArrayList;
@@ -143,5 +144,4 @@ public void setResult(String result) {
 }
 
 }
-
-
+>>>>>>> master
