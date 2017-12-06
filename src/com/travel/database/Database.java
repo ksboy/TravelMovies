@@ -149,7 +149,7 @@ public class Database {
         return result;
     }
 	public static ResultSet SearchTag(String moviename) {
-        String sql = "SELECT * FROM description WHERE tags = \"%\"?\"%\" ";
+        String sql = "SELECT * FROM description WHERE tags like \"%\"?\"%\" ";
         ResultSet result = null;
         try {
             pstmt = conn.prepareStatement(sql);
