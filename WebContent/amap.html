@@ -13,6 +13,7 @@
   <script type="text/javascript" src="js/map.js"></script>
   <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/material-components-web.js"></script>
+  
   </head>
   <body>
   
@@ -85,6 +86,17 @@
                   <span class="mdc-toolbar__title">跟着电影去旅行</span>
                 </a>
             </section>
+            <div id="author-select" class="mdc-select" role="listbox" tabindex="0">
+                              <span class="mdc-select__selected-text">请选择</span>
+                              <div class="mdc-simple-menu mdc-select__menu" >
+                                <ul id="author-select-items" class="mdc-list mdc-simple-menu__items" style="transform: scale(1, 1);">
+                                  <li class="mdc-list-item"role="option" id="search1" tabindex="0">电影名</li>
+                                  <li class="mdc-list-item"role="option" id="search2" tabindex="1">地点</li>
+                                  <li class="mdc-list-item"role="option" id="search3" tabindex="2">情节</li>
+                                </ul>
+                              </div>
+                            </div>
+              <input id="searchmoviename" class="controls" type="text" style="margin-top: 1px;" placeholder="搜索">
             <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
                 <a href="map.html" class="material-icons mdc-toolbar__icon" aria-label="Home">home</a>
                 <a href="map.html" class="material-icons mdc-toolbar__icon" aria-label="logout">close
@@ -134,6 +146,7 @@
 
 <!-- 增加描述对话框代码 -->
     <script type="text/javascript">
+    var index;
       (function() {
       var MDCDialog = mdc.dialog.MDCDialog;
         var MDCDialogFoundation = mdc.dialog.MDCDialogFoundation;
@@ -150,10 +163,28 @@
           addialog.lastFocusedTarget = evt.target;
           addialog.show();
         })
+        
+        var MDCSelect = mdc.select.MDCSelect;
+        var root = document.getElementById('author-select');
+        var select = MDCSelect.attachTo(root);
+        root.addEventListener('MDCSelect:change', function() {
+          var item = select.selectedOptions[0];
+          index = select.selectedIndex;
+        });
       })();
     </script>
 <!-- 增加描述对话框代码 -->
 <script type="text/javascript">mdc.autoInit(document, () => {});</script>
-
+<script type="text/javascript">
+  $(function (){
+  $('#searchmoviename').bind('keypress', function(event){
+    if(event.keyCode == "13"){
+     if( index == 0) {searchMovie($('#searchmoviename').val());}
+     else if( index == 1) {searchPlace($('#searchmoviename').val());}
+     else  {searchPlot($('#searchplacename').val());}
+    }
+  });
+});
+</script>
   </body>
 </html>
