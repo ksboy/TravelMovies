@@ -15,6 +15,7 @@ public class SearchMovie extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private String result;
 	private String movie;
+	private int ind;
 	
 	public String createdisJson(ResultSet dis) {
 		JSONObject outer = new JSONObject();
@@ -54,7 +55,10 @@ public class SearchMovie extends ActionSupport {
 	
 	public String SearchMovieName() {
 		Database.Connect();
-		ResultSet des_list = Database.SearchMovie(movie);
+		ResultSet des_list;
+		if(ind == 0) des_list = Database.SearchMovie(movie);
+		else if(ind == 1) des_list = Database.SearchPlace(movie);
+		else des_list = Database.SearchTag(movie);
 		result = createdisJson(des_list);
 		Database.Close();
 		return SUCCESS;
@@ -76,4 +80,13 @@ public class SearchMovie extends ActionSupport {
 	public void setMovie(String movie) {
 		this.movie = movie;
 	}
+
+    public int getInd() {
+        return ind;
+    }
+
+    public void setInd(int ind) {
+        this.ind = ind;
+    }
+	
 }

@@ -238,12 +238,13 @@ function SnackbarMsg(message){
   snackbar.show(data);
 }
 
-function searchMovie(movie){
+function searchMovie(movie, ind){
   $.ajax({
     url : "searchmovie.action",
     type : "POST",
     data : {
-        movie
+        movie,
+        ind
     },
     success : function(data) {
       dis = JSON.parse(data);

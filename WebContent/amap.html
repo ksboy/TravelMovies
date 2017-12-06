@@ -141,7 +141,7 @@
     <button type="button" class="mdc-snackbar__action-button" aria-hidden="true">Action</button>
   </div>
 </div>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzE9xAESye6Kde-3hT-6B90nfwUkcS8Yw&libraries=places&callback=initAutocomplete"
+<script src="http://maps.google.cn/maps/api/js?key=AIzaSyBzE9xAESye6Kde-3hT-6B90nfwUkcS8Yw&libraries=places&callback=initAutocomplete"
  async defer></script>
 
 <!-- 增加描述对话框代码 -->
@@ -179,9 +179,7 @@
   $(function (){
   $('#searchmoviename').bind('keypress', function(event){
     if(event.keyCode == "13"){
-     if( index == 0) {searchMovie($('#searchmoviename').val());}
-     else if( index == 1) {searchPlace($('#searchmoviename').val());}
-     else  {searchPlot($('#searchplacename').val());}
+     searchMovie($('#searchmoviename').val(), index);
     }
   });
 });
