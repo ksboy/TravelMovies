@@ -3,6 +3,7 @@ var map;
 var geocoder;
 var add_dis_listen_id;
 var infowindow;
+var poly;
 
 function display_route(){
 	var route_id = $("#display_route_id").val();
@@ -14,9 +15,16 @@ function display_route(){
 	    },
 	    success : function(data) {
 	      dis = JSON.parse(data);
-	
+	       
+        poly = new google.maps.Polyline({
+          strokeColor: '#000000',
+          strokeOpacity: 1.0,
+          strokeWeight: 3
+        });
+
 	      for(var i = 0; i < dis.dis.length; i++){
 	        // Create a marker for each place.
+          poly.getPath();
 	        var marker = new google.maps.Marker({
 	          map: map,
 	          position: {lat: dis.dis[i].y*1, lng: dis.dis[i].x*1},
@@ -97,12 +105,21 @@ function exit_discription_mode(){
   }
 }
 
+function addLine() {
+  poly.setMap(map);
+}
+
+function removeLine() {
+  poly.setMap(null);
+}
+
 function initAutocomplete() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -33.8688, lng: 151.2195},
     zoom: 13,
     mapTypeId: 'roadmap'
   });
+
   infowindow = new google.maps.InfoWindow(); 
   geocoder = new google.maps.Geocoder();
   // Create the search box and link it to the UI element.

@@ -198,7 +198,7 @@ public class Database {
 			result = pstmt.executeQuery();
 			result.next();
 			String ids = result.getString("item_ids");
-			String idsplit[] = ids.split("|");
+			String idsplit[] = ids.split("\\|");
 			sql = "SELECT * FROM description WHERE item_id = ";
 			for(int i = 0; i < idsplit.length - 1; i++) {
 				sql += idsplit[i];
