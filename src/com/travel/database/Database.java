@@ -3,6 +3,8 @@ package com.travel.database;
 import java.sql.*;
 import java.util.ArrayList;
 
+import com.opensymphony.xwork2.ActionContext;
+
 public class Database {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost:3306/travel";
@@ -179,6 +181,8 @@ public class Database {
 		String sql = "SELECT * FROM description WHERE user_id = ? AND visible = ?";
 		ResultSet result = null;
 		try {
+		    int id = (int)ActionContext.getContext().getSession().get("id");
+	        user_id = String.valueOf(id);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user_id);
 			pstmt.setString(2, visible);
@@ -188,7 +192,21 @@ public class Database {
 		}
 		return result;
 	}
-	
+	public static ResultSet ReadDiscriptionUserIdAll(String user_id, String visible) {
+        String sql = "SELECT * FROM description where visible = ?";
+        ResultSet result = null;
+        try {
+            int id = (int)ActionContext.getContext().getSession().get("id");
+            user_id = String.valueOf(id);
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, visible);
+          // pstmt.setString(2, visible);
+            result = pstmt.executeQuery();
+        } catch (SQLException e) {
+        
+        }
+        return result;
+    }
 	public static ResultSet DisplayRoute(String route_id) {
 		String sql = "SELECT * FROM route WHERE route_id = ?";
 		ResultSet result = null;
