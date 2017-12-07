@@ -39,5 +39,15 @@
             	<param name="root">result</param>
             </result>
         </action>
+        <action name="add_route" class="com.travel.action.AddRouteAction" method="AddRoute">
+        	<result type="json">
+            	<param name="root">result</param>
+            </result>
+        </action>
+        <action name="display_route" class="com.travel.action.DisplayRouteAction" method="DisplayRoute">
+        	<result type="json">
+            	<param name="root">result</param>
+            </result>
+        </action>
 	</package>
 </struts>

@@ -47,3 +47,12 @@ CREATE TABLE IF NOT EXISTS fav_description
     item_id INT NOT NULL
 );
 ALTER TABLE fav_description COMMENT = ' ’≤ÿ√Ë ˆ';
+
+CREATE TABLE route
+(
+    route_id INT PRIMARY KEY AUTO_INCREMENT,
+    item_ids VARCHAR(500) NOT NULL,
+    des VARCHAR(500)
+);
+CREATE UNIQUE INDEX route_route_id_uindex ON route (route_id);
+ALTER TABLE route COMMENT = '¬∑œﬂ';

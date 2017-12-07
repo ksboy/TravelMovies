@@ -4,6 +4,54 @@ var geocoder;
 var add_dis_listen_id;
 var infowindow;
 
+function display_route(){
+	var route_id = $("#display_route_id").val();
+	$.ajax({
+	    url : "display_route.action",
+	    type : "POST",
+	    data : {
+	    	route_id
+	    },
+	    success : function(data) {
+	      dis = JSON.parse(data);
+	
+	      for(var i = 0; i < dis.dis.length; i++){
+	        // Create a marker for each place.
+	        var marker = new google.maps.Marker({
+	          map: map,
+	          position: {lat: dis.dis[i].y*1, lng: dis.dis[i].x*1},
+	          title: dis.dis[i].place,
+	        });
+	
+	        markers.push(marker);
+	
+	        var contentString = "<p>"+
+	        dis.dis[i].item_id + " " +
+	        dis.dis[i].content + " " +
+	        dis.dis[i].movie + " " +
+	        dis.dis[i].place + " " +
+	        dis.dis[i].tags + " " +
+	        dis.dis[i].thoughts + " " +
+	        dis.dis[i].user_id + " " +
+	        dis.dis[i].visible + " " +
+	        dis.dis[i].y + " " +
+	        dis.dis[i].x + " ";
+	
+	        google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow){
+	          return function(){
+	            infowindow.setContent(contentString);
+	            infowindow.open(map, marker);
+	          };
+	        })(marker, contentString, infowindow));
+	      }
+	
+	    },
+	    error : function() {
+	      SnackbarMsg("读取描述失败");
+	    }
+	  })
+}
+
 function add_discription_listener(event){
   // Clear out the old markers.
   markers.forEach(function(marker) {
@@ -149,6 +197,25 @@ function add_discription(){
     }
   })
 }
+
+function add_route(){
+	  var ids = $("#add_route_ids").val();
+	  var des = $("#add_route_des").val();
+	  $.ajax({
+	    url : "add_route.action",
+	    type : "POST",
+	    data : {
+	        ids,
+	        des, 
+	    },
+	    success : function() {
+	      SnackbarMsg("添加成功");
+	    },
+	    error : function() {
+	      SnackbarMsg("添加失败");
+	    }
+	  })
+	}
 
 function read_discription_id(){
   var user_id = 1;

@@ -111,6 +111,21 @@ public class Database {
 		return result;
 	}
 	
+	public static int AddRoute(String user_id, String ids, String des) {
+		String sql = "INSERT INTO route (user_id, item_ids, des) VALUES (?, ?, ?)";
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			pstmt.setString(2, ids);
+			pstmt.setString(3, des);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	public static int DeleteDiscriptionById(String item_id) {
 		String sql = "DELETE FROM description WHERE item_id = ?";
 		int result = 0;
@@ -137,7 +152,7 @@ public class Database {
 		return result;
 	}
 	public static ResultSet SearchPlace(String moviename) {
-        String sql = "SELECT * FROM description WHERE place = ?";
+        String sql = "SELECT * FROM description WHERE place like \"%\"?\"%\" ";
         ResultSet result = null;
         try {
             pstmt = conn.prepareStatement(sql);
@@ -149,7 +164,7 @@ public class Database {
         return result;
     }
 	public static ResultSet SearchTag(String moviename) {
-        String sql = "SELECT * FROM description WHERE tags = ?";
+        String sql = "SELECT * FROM description WHERE tags like \"%\"?\"%\" ";
         ResultSet result = null;
         try {
             pstmt = conn.prepareStatement(sql);
@@ -167,6 +182,30 @@ public class Database {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user_id);
 			pstmt.setString(2, visible);
+			result = pstmt.executeQuery();
+		} catch (SQLException e) {
+		
+		}
+		return result;
+	}
+	
+	public static ResultSet DisplayRoute(String route_id) {
+		String sql = "SELECT * FROM route WHERE route_id = ?";
+		ResultSet result = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, route_id);
+			result = pstmt.executeQuery();
+			result.next();
+			String ids = result.getString("item_ids");
+			String idsplit[] = ids.split("|");
+			sql = "SELECT * FROM description WHERE item_id = ";
+			for(int i = 0; i < idsplit.length - 1; i++) {
+				sql += idsplit[i];
+				sql += " OR item_id = ";
+			}
+			sql += " OR item_id = " + idsplit[idsplit.length-1];
+			pstmt = conn.prepareStatement(sql);
 			result = pstmt.executeQuery();
 		} catch (SQLException e) {
 		
