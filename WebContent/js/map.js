@@ -276,6 +276,65 @@ function read_discription_id(){
   })
 }
 
+function read_discription_id_all(){
+	  var user_id = 1;
+	  var visible = 1;
+	  var dis;
+	  $.ajax({
+	    url : "read_discription_id_all.action",
+	    type : "POST",
+	    data : {
+	        user_id,
+	        visible,
+	    },
+	    success : function(data) {
+	      dis = JSON.parse(data);
+	      // Clear out the old markers.
+	      markers.forEach(function(marker) {
+	        marker.setMap(null);
+	      });
+	      markers = [];
+
+	      for(var i = 0; i < dis.dis.length; i++){
+	        // Create a marker for each place.
+	        var marker = new google.maps.Marker({
+	          map: map,
+	          position: {lat: dis.dis[i].y*1, lng: dis.dis[i].x*1},
+	          title: dis.dis[i].place,
+	        });
+
+	        markers.push(marker);
+
+	        var contentString = "<ul> <li> 条目号："+
+	        dis.dis[i].item_id + "</li> <li>情节：" +
+	        dis.dis[i].content + "</li> <li>电影名：" +
+	        dis.dis[i].movie + "</li> <li>地名：" +
+	        dis.dis[i].place + "</li> <li>标签：" +
+	        dis.dis[i].tags + "</li> <li>感想：" +
+	        dis.dis[i].thoughts + "</li> <li>用户id：" +
+	        dis.dis[i].user_id + " </li> </ul>";
+
+	        google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow){
+	          return function(){
+	            infowindow.setContent(contentString);
+	            infowindow.open(map, marker);
+	          };
+	        })(marker, contentString, infowindow));
+	      }
+
+	      markers.forEach(function(marker) {
+	        marker.setMap(map);
+	      });
+
+	      console.log(markers);
+	      console.log(dis);
+	    },
+	    error : function() {
+	      SnackbarMsg("读取描述失败");
+	    }
+	  })
+	}
+
 function delete_discription_id(){
   var item_id = $("#delete_dis_item_id").val();
   $.ajax({
