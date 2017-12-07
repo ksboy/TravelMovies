@@ -15,7 +15,16 @@ function display_route(){
 	    },
 	    success : function(data) {
 	      dis = JSON.parse(data);
-	       
+        // Clear out the old markers.
+        markers.forEach(function(marker) {
+          marker.setMap(null);
+        });
+        markers = [];
+        try{
+          poly.setMap(null);
+        }catch(err){
+          
+        }
         poly = new google.maps.Polyline({
           strokeColor: '#000000',
           strokeOpacity: 1.0,
@@ -24,7 +33,9 @@ function display_route(){
 
 	      for(var i = 0; i < dis.dis.length; i++){
 	        // Create a marker for each place.
-          poly.getPath();
+          var polypath = poly.getPath();
+          polypath.push(new google.maps.LatLng(dis.dis[i].y*1, dis.dis[i].x*1));
+          
 	        var marker = new google.maps.Marker({
 	          map: map,
 	          position: {lat: dis.dis[i].y*1, lng: dis.dis[i].x*1},
@@ -33,17 +44,14 @@ function display_route(){
 	
 	        markers.push(marker);
 	
-	        var contentString = "<p>"+
-	        dis.dis[i].item_id + " " +
-	        dis.dis[i].content + " " +
-	        dis.dis[i].movie + " " +
-	        dis.dis[i].place + " " +
-	        dis.dis[i].tags + " " +
-	        dis.dis[i].thoughts + " " +
-	        dis.dis[i].user_id + " " +
-	        dis.dis[i].visible + " " +
-	        dis.dis[i].y + " " +
-	        dis.dis[i].x + " ";
+	        var contentString = "<ul> <li> 条目号："+
+          dis.dis[i].item_id + "</li> <li>情节：" +
+          dis.dis[i].content + "</li> <li>电影名：" +
+          dis.dis[i].movie + "</li> <li>地名：" +
+          dis.dis[i].place + "</li> <li>标签：" +
+          dis.dis[i].tags + "</li> <li>感想：" +
+          dis.dis[i].thoughts + "</li> <li>用户id：" +
+          dis.dis[i].user_id + " </li> </ul>";
 	
 	        google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow){
 	          return function(){
@@ -52,7 +60,7 @@ function display_route(){
 	          };
 	        })(marker, contentString, infowindow));
 	      }
-	
+	      poly.setMap(map);
 	    },
 	    error : function() {
 	      SnackbarMsg("读取描述失败");
@@ -103,14 +111,6 @@ function exit_discription_mode(){
   } catch(err){
 
   }
-}
-
-function addLine() {
-  poly.setMap(map);
-}
-
-function removeLine() {
-  poly.setMap(null);
 }
 
 function initAutocomplete() {

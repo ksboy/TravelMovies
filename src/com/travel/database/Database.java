@@ -204,7 +204,7 @@ public class Database {
 				sql += idsplit[i];
 				sql += " OR item_id = ";
 			}
-			sql += " OR item_id = " + idsplit[idsplit.length-1];
+			sql += idsplit[idsplit.length-1];
 			pstmt = conn.prepareStatement(sql);
 			result = pstmt.executeQuery();
 		} catch (SQLException e) {
