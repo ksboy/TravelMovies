@@ -246,17 +246,14 @@ function read_discription_id(){
 
         markers.push(marker);
 
-        var contentString = "<p>"+
-        dis.dis[i].item_id + " " +
-        dis.dis[i].content + " " +
-        dis.dis[i].movie + " " +
-        dis.dis[i].place + " " +
-        dis.dis[i].tags + " " +
-        dis.dis[i].thoughts + " " +
-        dis.dis[i].user_id + " " +
-        dis.dis[i].visible + " " +
-        dis.dis[i].y + " " +
-        dis.dis[i].x + " ";
+        var contentString = "<ul> <li> 条目号："+
+        dis.dis[i].item_id + "</li> <li>情节：" +
+        dis.dis[i].content + "</li> <li>电影名：" +
+        dis.dis[i].movie + "</li> <li>地名：" +
+        dis.dis[i].place + "</li> <li>标签：" +
+        dis.dis[i].tags + "</li> <li>感想：" +
+        dis.dis[i].thoughts + "</li> <li>用户id：" +
+        dis.dis[i].user_id + " </li> </ul>";
 
         google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow){
           return function(){
@@ -330,17 +327,14 @@ function searchMovie(movie, ind){
 
         markers.push(marker);
 
-        var contentString = "<p>"+
-        dis.dis[i].item_id + " " +
-        dis.dis[i].content + " " +
-        dis.dis[i].movie + " " +
-        dis.dis[i].place + " " +
-        dis.dis[i].tags + " " +
-        dis.dis[i].thoughts + " " +
-        dis.dis[i].user_id + " " +
-        dis.dis[i].visible + " " +
-        dis.dis[i].y + " " +
-        dis.dis[i].x + " ";
+        var contentString = "<ul> <li> 条目号："+
+        dis.dis[i].item_id + "</li> <li>情节：" +
+        dis.dis[i].content + "</li> <li>电影名：" +
+        dis.dis[i].movie + "</li> <li>地名：" +
+        dis.dis[i].place + "</li> <li>标签：" +
+        dis.dis[i].tags + "</li> <li>感想：" +
+        dis.dis[i].thoughts + "</li> <li>用户id：" +
+        dis.dis[i].user_id + " </li> </ul>";
 
         google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow){
           return function(){
