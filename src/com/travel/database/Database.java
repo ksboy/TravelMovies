@@ -204,6 +204,17 @@ public class Database {
 		}
 		return result;
 	}
+	public static ResultSet ReadRoute() {
+		String sql = "SELECT * FROM route";
+		ResultSet result = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeQuery();
+		} catch (SQLException e) {
+		
+		}
+		return result;
+	}
 	public static ResultSet ReadDiscriptionUserIdAll(String user_id, String visible) {
         String sql = "SELECT * FROM description where visible = ?";
         ResultSet result = null;

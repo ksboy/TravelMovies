@@ -5,8 +5,28 @@ var add_dis_listen_id;
 var infowindow;
 var poly;
 
-function display_route(){
-	var route_id = $("#display_route_id").val();
+function read_route() {
+  $.ajax({
+      url : "read_route.action",
+      type : "POST",
+      data : {
+    	  
+      },
+      success : function(data) {
+        dis = JSON.parse(data);
+        var list = $("#read_in_route");
+        for(var i = 0; i < dis.dis.length; i++){
+          var html = '<a href="#" onclick="display_route('+dis.dis[i].route_id+')"class="mdc-list-item" data-mdc-auto-init="MDCRipple" id="Route'+dis.dis[i].route_id+'" tabindex="0"> 用户ID:'+dis.dis[i].user_id+' 描述: '+ dis.dis[i].des +'</a>';
+          list.append(html);
+        }
+      },
+      error : function() {
+        SnackbarMsg("读取描述失败");
+      }
+    })
+}
+
+function display_route(route_id){
 	$.ajax({
 	    url : "display_route.action",
 	    type : "POST",
@@ -30,7 +50,8 @@ function display_route(){
           strokeOpacity: 1.0,
           strokeWeight: 3
         });
-
+        
+        var sharetext = "我分享了一个旅行路线，大家快来围观: ";
 	      for(var i = 0; i < dis.dis.length; i++){
 	        // Create a marker for each place.
           var polypath = poly.getPath();
@@ -52,7 +73,9 @@ function display_route(){
           dis.dis[i].tags + "</li> <li>感想：" +
           dis.dis[i].thoughts + "</li> <li>用户id：" +
           dis.dis[i].user_id + " </li> </ul>";
-	
+	        
+	        sharetext += i + " " + dis.dis[i].place + " ";
+	        
 	        google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow){
 	          return function(){
 	            infowindow.setContent(contentString);
@@ -61,6 +84,7 @@ function display_route(){
 	        })(marker, contentString, infowindow));
 	      }
 	      poly.setMap(map);
+	      document.getElementById("weiboshare").getElementsByClassName('iframe')[0].src = "http://widget.weibo.com/staticjs/weibosharev2.html?url=http%3A%2F%2Fopen.weibo.com%2Fsharebutton&amp;type=button&amp;language=zh_cn&amp;title="+sharetext+"&amp;searchPic=true&amp;style=number";
 	    },
 	    error : function() {
 	      SnackbarMsg("读取描述失败");

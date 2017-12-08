@@ -54,5 +54,10 @@
             	<param name="root">result</param>
             </result>
         </action>
+        <action name="read_route" class="com.travel.action.ReadRouteAction" method="ReadRoute">
+        	<result type="json">
+            	<param name="root">result</param>
+            </result>
+        </action>
 	</package>
 </struts>
