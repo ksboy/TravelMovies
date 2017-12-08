@@ -14,7 +14,7 @@ public class Database {
 
 	static Connection conn = null;
 	static PreparedStatement pstmt = null; 
-	
+	static PreparedStatement pstmt2 = null;
 	/** 连接数据库
 	 * 
 	 */
@@ -72,7 +72,71 @@ public class Database {
 	    return false;
 	    
 	}
-	
+	public static boolean add_follower(int id1,int id2)
+	{
+	    String sql = "INSERT INTO user_follow(self_id,follow_id)values(?,?)";
+	    String sql2 = "SELECT * FROM user_follow where self_id = ? AND follow_id = ?";
+	    try{
+	        pstmt2= conn.prepareStatement(sql2);
+	        pstmt2.setInt(1,id1);
+	        pstmt2.setInt(2,id2);
+	        ResultSet rs = pstmt2.executeQuery();
+	        if(rs.next()) return true;
+	        pstmt = conn.prepareStatement(sql);
+	        pstmt.setInt(1,id1);
+	        pstmt.setInt(2,id2);
+	        if(id1 == id2) return true;
+	        int result = pstmt.executeUpdate();
+	        if(result == 0) return false;
+	        else return true;
+	    }catch(Exception e) {  
+	        System.out.print("get data error!");  
+	        e.printStackTrace();  
+	       }
+	    
+	    return false;
+	    
+	}
+	public static boolean del_follower(int id1,int id2)
+    {
+        String sql = "delete FROM user_follow where self_id = ? AND follow_id = ?";
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,id1);
+            pstmt.setInt(2,id2);
+            int result = pstmt.executeUpdate();
+            if(result == 0) return false;
+            else return true;
+        }catch(Exception e) {  
+            System.out.print("get data error!");  
+            e.printStackTrace();  
+           }
+        
+        return false;
+        
+    }
+	public static ArrayList<Integer> search_follower(int id1)
+    {
+        String sql = "SELECT * FROM user_follow where self_id = ?";
+        //ArrayList<String> result = new ArrayList<String>();
+        ArrayList<Integer> result=new ArrayList<Integer>();
+        try{
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,id1);
+            ResultSet rs = pstmt.executeQuery();
+            while(rs.next())
+            {
+                result.add(rs.getInt("follow_id"));
+            }
+            
+        }catch(Exception e) {  
+            System.out.print("get data error!");  
+            e.printStackTrace();  
+           }
+        
+        return result;
+        
+    }
 	public static int checkUser(String username, String password) {
 		String sql = "SELECT * FROM user WHERE name = ?";
 		ResultSet rs = null;
