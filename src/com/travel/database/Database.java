@@ -190,14 +190,14 @@ public class Database {
         return result;
     }
 	public static ResultSet ReadDiscriptionUserId(String user_id, String visible) {
-		String sql = "SELECT * FROM description WHERE user_id = ? AND visible = ?";
+		String sql = "SELECT * FROM description WHERE user_id = ?";
 		ResultSet result = null;
 		try {
 		    int id = (int)ActionContext.getContext().getSession().get("id");
 	        user_id = String.valueOf(id);
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user_id);
-			pstmt.setString(2, visible);
+			//pstmt.setString(2, visible);
 			result = pstmt.executeQuery();
 		} catch (SQLException e) {
 		
