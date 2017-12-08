@@ -391,6 +391,24 @@ function delete_discription_id(item_id){
     }
   })
 }
+
+function getId(){
+$.ajax({
+    url : "user_id.action",
+    type : "POST",
+    data : {
+    	
+    },
+    success : function(data) {
+      userid = JSON.parse(data);
+      $("#user_id_span").html("User ID: "+ userid.result);
+    },
+    error : function() {
+      
+    }
+  })	
+}
+
 function SnackbarMsg(message){
   var MDCSnackbar = mdc.snackbar.MDCSnackbar;
   var MDCSnackbarFoundation = mdc.snackbar.MDCSnackbarFoundation;

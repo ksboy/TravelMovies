@@ -59,5 +59,10 @@
             	<param name="root">result</param>
             </result>
         </action>
+        <action name="user_id" class="com.travel.action.UserId" method="GetId">
+            <result type="json">
+                <param name="root">result</param>
+            </result>
+        </action>
 	</package>
 </struts>

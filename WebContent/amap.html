@@ -17,6 +17,7 @@
   <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
   <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+
   </head>
   <body>
   
@@ -104,11 +105,24 @@
                               </div>
                             </div>
               <input id="searchmoviename" class="controls" type="text" style="margin-top: 1px;" placeholder="搜索">
-            <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
-                <a href="map.html" class="material-icons mdc-toolbar__icon" aria-label="Home">home</a>
-                <a href="map.html" class="material-icons mdc-toolbar__icon" aria-label="logout">close
-                </a>
+              <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
+                <!-- <a href="map.html" class="material-icons mdc-toolbar__icon" aria-label="Home">home</a>
+                <a href="login.html" class="material-icons mdc-toolbar__icon" aria-label="logout">close
+                </a> -->
+                <div class="mdc-menu-anchor">
+	            <button class="mdc-button mdc-button--raised mdc-button--primary toggle "><span id="user_id_span"></span></button>
+	            <div class="mdc-simple-menu" style="position: absolute; transform-origin: right top 0px; right: 0px; top: 0px; transform: scale(0, 0);" tabindex="-1" id="demo-menu">
+	            <ul class="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true" style="transform: scale(1, 1);">
+	            <li class="mdc-list-item" role="menuitem" tabindex="0" style="">Back</li>
+	            <li class="mdc-list-item" role="menuitem" tabindex="0" style="">Forward</li>
+	            <li class="mdc-list-item" role="menuitem" tabindex="0" style="">Reload</li>
+	            <li class="mdc-list-divider" role="separator"></li>
+	            <li class="mdc-list-item" role="menuitem" tabindex="0" style="">Save As...</li>
+	            </ul>
+	            </div>
+	            </div>
             </section>
+           
         </div>
     </header>
 
@@ -197,6 +211,7 @@
         });
 
         read_route();
+        getId();
         document.getElementById('author-select').setAttribute("style","width:80px");
       })();
     </script>
@@ -212,5 +227,52 @@
   
 });
 </script>
+<script>
+      var menuEl = document.querySelector('#demo-menu');
+      var menu = new mdc.menu.MDCSimpleMenu(menuEl);
+      var toggle = document.querySelector('.toggle');
+      toggle.addEventListener('click', function() {
+        menu.open = !menu.open;
+      });
+
+      var dark = document.querySelector('input[name="dark"]');
+      dark.addEventListener('change', function(evt) {
+        var contentEl = document.querySelector('.demo-content');
+        if (evt.target.checked) {
+          contentEl.classList.add('mdc-theme--dark');
+          menuEl.classList.add('mdc-simple-menu--theme-dark');
+        } else {
+          contentEl.classList.remove('mdc-theme--dark');
+          menuEl.classList.remove('mdc-simple-menu--theme-dark');
+        }
+      });
+
+      var radios = document.querySelectorAll('input[name="position"]');
+      for (var i = 0; i < radios.length; i++) {
+        radios[i].addEventListener('change', function(evt) {
+          if (evt.target.checked) {
+            if (evt.target.value) {
+              var anchor = document.querySelector('.mdc-menu-anchor');
+              anchor.style.removeProperty('top');
+              anchor.style.removeProperty('right');
+              anchor.style.removeProperty('bottom');
+              anchor.style.removeProperty('left');
+
+              var vertical = evt.target.value.split(' ')[0];
+              var horizontal = evt.target.value.split(' ')[1];
+              anchor.style.setProperty(vertical, '0');
+              anchor.style.setProperty(horizontal, '0');
+            }
+          }
+        });
+      }
+
+      var lastSelected = document.getElementById('last-selected');
+      menuEl.addEventListener('MDCSimpleMenu:selected', function(evt) {
+        const detail = evt.detail;
+        lastSelected.textContent = '"' + detail.item.textContent.trim() +
+          '" at index ' + detail.index;
+      });
+    </script>
   </body>
 </html>
