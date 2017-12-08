@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:wb="http://open.weibo.com/wb">
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
@@ -13,10 +13,14 @@
   <script type="text/javascript" src="js/map.js"></script>
   <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/material-components-web.js"></script>
+<<<<<<< HEAD
   <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
   <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
   
+=======
+  <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
+>>>>>>> refs/remotes/origin/sm
   </head>
   <body>
   
@@ -27,7 +31,7 @@
     aria-labelledby="add-discription-mdc-dialog-label"
     aria-describedby="add-discription-mdc-dialog-description" style="z-index: 111">
     <!-- z-index 的值是根据高德地图的小窗框试出来的 -->
-    <div class="mdc-dialog__surface">
+    <div class="mdc-dialog__surface" style="width: 45%;">
     <header class="mdc-dialog__header">
     <h2 id="add-discription-mdc-dialog-label" class="mdc-dialog__header__title">
     新增描述
@@ -38,38 +42,41 @@
             <input type="text" class="mdc-textfield__input" id="dis_user_id" required>
             <label for="dis_user_id" class="mdc-textfield__label">用户ID</label>
         </div>
-        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield" style="display: none;">
             <input type="text" class="mdc-textfield__input" id="dis_x" value="0" required>
             <label for="dis_x" class="mdc-textfield__label">x坐标</label>
         </div>
-        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield" style="display: none;">
             <input type="text" class="mdc-textfield__input" id="dis_y" value="0" required>
             <label for="dis_y" class="mdc-textfield__label">y坐标</label>
         </div>
-        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+        <ul>
+        
+        <li><div class="mdc-textfield" data-mdc-auto-init="MDCTextfield" style="width: 90%;">
             <input type="text" class="mdc-textfield__input" id="dis_place" value="无" required>
             <label for="dis_place" class="mdc-textfield__label">地点</label>
-        </div>
-        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-            <input type="text" class="mdc-textfield__input" id="dis_visible" value="1" required>
-            <label for="dis_visible" class="mdc-textfield__label">是否可见(1/0)</label>
-        </div>
-        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-            <input type="text" class="mdc-textfield__input" id="dis_content">
-            <label for="dis_content" class="mdc-textfield__label">情节</label>
-        </div>
-        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+        </div></li>
+        <li><div class="mdc-textfield" data-mdc-auto-init="MDCTextfield" style="width: 90%;">
             <input type="text" class="mdc-textfield__input" id="dis_movie" required>
             <label for="dis_movie" class="mdc-textfield__label">电影名</label>
-        </div>
-        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
-            <input type="text" class="mdc-textfield__input" id="dis_thoughts">
+        </div></li>
+        <li><div class="mdc-textfield" data-mdc-auto-init="MDCTextfield" style="width: 90%;">
+            <input type="text" class="mdc-textfield__input" id="dis_content">
+            <label for="dis_content" class="mdc-textfield__label">情节</label>
+        </div></li>
+        <li><div class="mdc-textfield mdc-textfield--multiline" data-mdc-auto-init="MDCTextfield">
+            <textarea class="mdc-textfield__input" rows="5" cols="80" id="dis_thoughts"></textarea>
             <label for="dis_thoughts" class="mdc-textfield__label">感想</label>
-        </div>
-        <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+        </div></li>
+        <li><div class="mdc-textfield" data-mdc-auto-init="MDCTextfield" style="width: 90%;">
             <input type="text" class="mdc-textfield__input" id="dis_tags">
             <label for="dis_tags" class="mdc-textfield__label">标签(以|分隔)</label>
-        </div>
+        </div></li>
+        <li><div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
+            <input type="text" class="mdc-textfield__input" id="dis_visible" value="1" required>
+            <label for="dis_visible" class="mdc-textfield__label">是否可见(1/0)</label>
+        </div></li>
+        </ul>
     </section>
     <footer class="mdc-dialog__footer">
     <button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--cancel">取消</button>
@@ -95,7 +102,8 @@
                                 <ul id="author-select-items" class="mdc-list mdc-simple-menu__items" style="transform: scale(1, 1);">
                                   <li class="mdc-list-item"role="option" id="search1" tabindex="0">电影名</li>
                                   <li class="mdc-list-item"role="option" id="search2" tabindex="1">地点</li>
-                                  <li class="mdc-list-item"role="option" id="search3" tabindex="2">情节</li>
+                                  <li class="mdc-list-item"role="option" id="search3" tabindex="2">标签</li>
+                                  <li class="mdc-list-item"role="option" id="search4" tabindex="3">情节</li>
                                 </ul>
                               </div>
                             </div>
@@ -127,13 +135,14 @@
 
         <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="read_dis_btn" onclick="read_discription_id()">读取描述：仅自己</div>
         <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="read_dis_btn" onclick="read_discription_id_all()">读取描述：全部用户</div>
+        <!--  
         <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
           <input type="text" class="mdc-textfield__input" id="delete_dis_item_id">
           <label for="delete_dis_item_id" class="mdc-textfield__label">删除描述item_id</label>
         </div>
-
-        <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="delete_dis_btn" onclick="delete_discription_id()">删除描述</div>
         
+        <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="delete_dis_btn" onclick="delete_discription_id()">删除描述</div>
+        -->
         <div class="mdc-textfield" data-mdc-auto-init="MDCTextfield">
           <input type="text" class="mdc-textfield__input" id="add_route_ids">
           <label for="add_route_ids" class="mdc-textfield__label">路线id(id用|隔开)</label>
@@ -158,9 +167,10 @@
         </div>
 
         <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="display_route_btn" onclick="display_route()">显示路线</div>
+    <wb:share-button addition="number" type="button" default_text="我分享了一个旅行路线，大家快来围观"><iframe src="http://widget.weibo.com/staticjs/weibosharev2.html?url=http%3A%2F%2Fopen.weibo.com%2Fsharebutton&amp;type=button&amp;language=zh_cn&amp;title=我分享了一个旅行路线，大家快来围观&amp;searchPic=true&amp;style=number" width="128" height="25" frameborder="0" scrolling="no" marginheight="0"></iframe></wb:share-button>
       </div>
 
-
+    
     </div>
   </div>
 <div id="mdc-snackbar" class="mdc-snackbar demo-hidden" aria-live="assertive" aria-atomic="true" aria-hidden="true">
