@@ -15,6 +15,51 @@ function read_route() {
       success : function(data) {
         dis = JSON.parse(data);
         var list = $("#read_in_route");
+        list.empty();
+        for(var i = 0; i < dis.dis.length; i++){
+          var html = '<a href="#" onclick="display_route('+dis.dis[i].route_id+')"class="mdc-list-item" data-mdc-auto-init="MDCRipple" id="Route'+dis.dis[i].route_id+'" tabindex="0"> 用户ID:'+dis.dis[i].user_id+' 描述: '+ dis.dis[i].des +'</a>';
+          list.append(html);
+        }
+      },
+      error : function() {
+        SnackbarMsg("读取描述失败");
+      }
+    })
+}
+
+function read_route_self() {
+  $.ajax({
+      url : "read_route_self.action",
+      type : "POST",
+      data : {
+    	  
+      },
+      success : function(data) {
+        dis = JSON.parse(data);
+        var list = $("#read_in_route");
+        list.empty();
+        for(var i = 0; i < dis.dis.length; i++){
+          var html = '<a href="#" onclick="display_route('+dis.dis[i].route_id+')"class="mdc-list-item" data-mdc-auto-init="MDCRipple" id="Route'+dis.dis[i].route_id+'" tabindex="0"> 用户ID:'+dis.dis[i].user_id+' 描述: '+ dis.dis[i].des +'</a>';
+          list.append(html);
+        }
+      },
+      error : function() {
+        SnackbarMsg("读取描述失败");
+      }
+    })
+}
+
+function read_route_fav() {
+  $.ajax({
+      url : "read_route_fav.action",
+      type : "POST",
+      data : {
+    	  
+      },
+      success : function(data) {
+        dis = JSON.parse(data);
+        var list = $("#read_in_route");
+        list.empty();
         for(var i = 0; i < dis.dis.length; i++){
           var html = '<a href="#" onclick="display_route('+dis.dis[i].route_id+')"class="mdc-list-item" data-mdc-auto-init="MDCRipple" id="Route'+dis.dis[i].route_id+'" tabindex="0"> 用户ID:'+dis.dis[i].user_id+' 描述: '+ dis.dis[i].des +'</a>';
           list.append(html);
