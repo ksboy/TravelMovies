@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:wb="http://open.weibo.com/wb">
+<html>
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
@@ -13,10 +13,6 @@
   <script type="text/javascript" src="js/map.js"></script>
   <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/material-components-web.js"></script>
-  <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css">
-  <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
-  <script src="https://cdn.bootcss.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js"></script>
-  <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
 
   </head>
   <body>
@@ -83,9 +79,6 @@
     <div class="mdc-dialog__backdrop"></div>
     </aside>
 <!-- 增加描述对话框 -->
-
-
-
     <header class="mdc-toolbar mdc-toolbar--fixed">
         <div class="mdc-toolbar__row">
             <section class="mdc-toolbar__section mdc-toolbar__section--align-start">
@@ -162,7 +155,16 @@
         </div>
 		
         <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="add_route_btn" onclick="add_route()">新增路线</div>
-        
+        <div id="mode-select" class="mdc-select" role="listbox" tabindex="0" >
+          <span class="mdc-select__selected-text">查看所有人的路线</span>
+          <div class="mdc-simple-menu mdc-select__menu" >
+            <ul id="mode-select-items" class="mdc-list mdc-simple-menu__items" style="transform: scale(1, 1);">
+              <li class="mdc-list-item"role="option" id="mode_search1" tabindex="0">查看所有人的路线</li>
+              <li class="mdc-list-item"role="option" id="mode_search2" tabindex="1">查看自己的路线</li>
+              <li class="mdc-list-item"role="option" id="mode_search3" tabindex="2">查看关注的人的路线</li>
+            </ul>
+          </div>
+        </div>
         <div style="overflow-y: scroll;" id="read_in_route"></div>
         <a target="view_window" href="http://service.weibo.com/share/share.php?language=zh_cn&searchPic=true"  class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="weiboshare">分享到微博</a>
     
@@ -206,6 +208,22 @@
         root.addEventListener('MDCSelect:change', function() {
           var item = select.selectedOptions[0];
           index = select.selectedIndex;
+        });
+        
+        var root1 = document.getElementById('mode-select');
+        var select1 = MDCSelect.attachTo(root1);
+        root1.addEventListener('MDCSelect:change', function() {
+          var item1 = select1.selectedOptions[0];
+          index1 = select1.selectedIndex;
+          if(index1 == 0) {
+        	  read_route();
+          }
+          else if (index1 == 1) {
+        	  read_route_self();
+          }
+          else if (index1 == 2) {
+        	  read_route_fav();
+          }
         });
 
         var menuEl = document.querySelector('#demo-menu');

@@ -73,7 +73,16 @@
             	<param name="root">result</param>
             </result>
         </action>
-      
+        <action name="read_route_self" class="com.travel.action.ReadRouteAction" method="ReadSelfRoute">
+        	<result type="json">
+            	<param name="root">result</param>
+            </result>
+        </action>
+        <action name="read_route_fav" class="com.travel.action.ReadRouteAction" method="ReadFavRoute">
+        	<result type="json">
+            	<param name="root">result</param>
+            </result>
+        </action>
         <action name="user_id" class="com.travel.action.UserId" method="GetId">
             <result type="json">
                 <param name="root">result</param>

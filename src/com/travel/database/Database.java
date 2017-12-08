@@ -293,6 +293,40 @@ public class Database {
 		}
 		return result;
 	}
+	public static ResultSet ReadSelfRoute(String user_id) {
+		String sql = "SELECT * FROM route WHERE user_id = ?";
+		ResultSet result = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			result = pstmt.executeQuery();
+		} catch (SQLException e) {
+		
+		}
+		return result;
+	}
+	public static ResultSet ReadFavRoute(String self_user_id) {
+		String sql = "SELECT * FROM user_follow WHERE self_id = ?";
+		ResultSet result = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, self_user_id);
+			result = pstmt.executeQuery();
+			sql = "SELECT * FROM route WHERE user_id = ";
+			result.next();
+			sql += result.getString("follow_id");
+			while(result.next()) {
+				sql += " OR item_id = ";
+				sql += result.getString("follow_id");
+			}
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeQuery();
+			
+		} catch (SQLException e) {
+		
+		}
+		return result;
+	}
 	public static ResultSet ReadDiscriptionUserIdAll(String user_id, String visible) {
         String sql = "SELECT * FROM description where visible = ? OR user_id = ?";
         ResultSet result = null;
