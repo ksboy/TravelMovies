@@ -4,6 +4,7 @@ import net.sf.json.JSONObject;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.travel.database.Database;
 
 public class UserId extends ActionSupport {
 	private static final long serialVersionUID = 1L;
@@ -11,11 +12,13 @@ public class UserId extends ActionSupport {
     private String result;
 	
 	public String GetId() {
+	    Database.Connect();
 		JSONObject rsjson = new JSONObject();
 		int id = (int)ActionContext.getContext().getSession().get("id");
-		user_id = String.valueOf(id);
+		user_id = Database.SearchName(id);
         rsjson.put("result", user_id);
         result = JSONObject.fromObject(rsjson).toString();
+        Database.Close();
 		return SUCCESS;
 	}
 	

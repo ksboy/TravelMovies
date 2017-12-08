@@ -140,7 +140,21 @@ public class Database {
 		}
 		return result;
 	}
-	
+	public static String SearchName(int id) {
+        String sql = "SELECT * FROM user WHERE id = ?";
+        String result = null;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            result=rs.getString("name");
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 	public static ResultSet SearchMovie(String moviename) {
 		String sql = "SELECT * FROM description WHERE movie = ?";
 		ResultSet result = null;

@@ -402,7 +402,7 @@ $.ajax({
     },
     success : function(data) {
       userid = JSON.parse(data);
-      $("#user_id_span").html("User ID: "+ userid.result);
+      $("#user_id_span").html("用户名: "+ userid.result);
     },
     error : function() {
       
