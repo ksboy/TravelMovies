@@ -74,7 +74,7 @@ function display_route(route_id){
           dis.dis[i].thoughts + "</li> <li>用户id：" +
           dis.dis[i].user_id + " </li> </ul>";
 	        
-	        sharetext += i + " " + dis.dis[i].place + " ";
+	        sharetext +=  "(" + dis.dis[i].place + ") ";
 	        
 	        google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow){
 	          return function(){
@@ -84,7 +84,8 @@ function display_route(route_id){
 	        })(marker, contentString, infowindow));
 	      }
 	      poly.setMap(map);
-	      document.getElementById("weiboshare").getElementsByClassName('iframe')[0].src = "http://widget.weibo.com/staticjs/weibosharev2.html?url=http%3A%2F%2Fopen.weibo.com%2Fsharebutton&amp;type=button&amp;language=zh_cn&amp;title="+sharetext+"&amp;searchPic=true&amp;style=number";
+	      document.getElementById("weiboshare")["href"] = "http://service.weibo.com/share/share.php?language=zh_cn&searchPic=true&title="+sharetext;
+	      //document.getElementById("weiboshare").getElementsByClassName('iframe').src = "http://widget.weibo.com/staticjs/weibosharev2.html?url=http%3A%2F%2Fopen.weibo.com%2Fsharebutton&amp;type=button&amp;language=zh_cn&amp;title="+sharetext+"&amp;searchPic=true&amp;style=number";
 	    },
 	    error : function() {
 	      SnackbarMsg("读取描述失败");

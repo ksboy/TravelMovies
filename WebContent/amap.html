@@ -152,7 +152,7 @@
         <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="add_route_btn" onclick="add_route()">新增路线</div>
         
         <div style="overflow-y: scroll;" id="read_in_route"></div>
-		    
+        <a target="view_window" href="http://service.weibo.com/share/share.php?language=zh_cn&searchPic=true"  class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="weiboshare">分享到微博</a>
     
       </div>
 
@@ -198,6 +198,7 @@
 
         read_route();
         document.getElementById('author-select').setAttribute("style","width:80px");
+        document.getElementById('weiboshare').setAttribute("style","-webkit-appearance: initial");
       })();
     </script>
 <!-- 增加描述对话框代码 -->
