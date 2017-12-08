@@ -409,7 +409,7 @@ function searchMovie(movie, ind){
         dis.dis[i].place + "</li> <li>标签：" +
         dis.dis[i].tags + "</li> <li>感想：" +
         dis.dis[i].thoughts + "</li> <li>用户id：" +
-        dis.dis[i].user_id + " </li> </ul>";
+        dis.dis[i].user_id + " </li> </ul>" +"<div class=\"mdc-button mdc-button--primary mdc-ripple-upgraded\" data-mdc-auto-init=\"MDCRipple\" id=\"delete_dis_btn\" onclick=\"delete_discription_id("+ dis.dis[i].item_id +")\">删除</div>";
 
         google.maps.event.addListener(marker, 'click', (function(marker, contentString, infowindow){
           return function(){
