@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:wb="http://open.weibo.com/wb">
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
@@ -13,7 +13,7 @@
   <script type="text/javascript" src="js/map.js"></script>
   <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
   <script type="text/javascript" src="js/material-components-web.js"></script>
-  
+  <script src="http://tjs.sjs.sinajs.cn/open/api/js/wb.js" type="text/javascript" charset="utf-8"></script>
   </head>
   <body>
   
@@ -154,9 +154,10 @@
         </div>
 
         <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="display_route_btn" onclick="display_route()">显示路线</div>
+    <wb:share-button addition="number" type="button" default_text="我分享了一个旅行路线，大家快来围观"><iframe src="http://widget.weibo.com/staticjs/weibosharev2.html?url=http%3A%2F%2Fopen.weibo.com%2Fsharebutton&amp;type=button&amp;language=zh_cn&amp;title=我分享了一个旅行路线，大家快来围观&amp;searchPic=true&amp;style=number" width="128" height="25" frameborder="0" scrolling="no" marginheight="0"></iframe></wb:share-button>
       </div>
 
-
+    
     </div>
   </div>
 <div id="mdc-snackbar" class="mdc-snackbar demo-hidden" aria-live="assertive" aria-atomic="true" aria-hidden="true">
