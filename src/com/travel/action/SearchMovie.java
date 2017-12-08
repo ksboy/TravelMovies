@@ -58,7 +58,8 @@ public class SearchMovie extends ActionSupport {
 		ResultSet des_list;
 		if(ind == 0) des_list = Database.SearchMovie(movie);
 		else if(ind == 1) des_list = Database.SearchPlace(movie);
-		else des_list = Database.SearchTag(movie);
+		else if(ind == 2)des_list = Database.SearchTag(movie);
+		else des_list = Database.SearchPlot(movie);
 		result = createdisJson(des_list);
 		Database.Close();
 		return SUCCESS;
