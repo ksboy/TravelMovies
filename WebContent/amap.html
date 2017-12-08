@@ -92,7 +92,7 @@
                   <span class="mdc-toolbar__title">跟着电影去旅行</span>
                 </a>
             </section>
-            <div id="author-select" class="mdc-select" role="listbox" tabindex="0">
+            <div id="author-select" class="mdc-select" role="listbox" tabindex="0" style="width: 80px;">
                               <span class="mdc-select__selected-text">请选择</span>
                               <div class="mdc-simple-menu mdc-select__menu" >
                                 <ul id="author-select-items" class="mdc-list mdc-simple-menu__items" style="transform: scale(1, 1);">
@@ -152,7 +152,8 @@
         <div class="mdc-button mdc-button--primary mdc-ripple-upgraded" data-mdc-auto-init="MDCRipple" id="add_route_btn" onclick="add_route()">新增路线</div>
         
         <div style="overflow-y: scroll;" id="read_in_route"></div>
-    <wb:share-button id="weiboshare" addition="number" type="button" default_text="我分享了一个旅行路线，大家快来围观"><iframe src="http://widget.weibo.com/staticjs/weibosharev2.html?url=http%3A%2F%2Fopen.weibo.com%2Fsharebutton&amp;type=button&amp;language=zh_cn&amp;title=我分享了一个旅行路线，大家快来围观&amp;searchPic=true&amp;style=number" width="128" height="25" frameborder="0" scrolling="no" marginheight="0"></iframe></wb:share-button>
+		    
+    
       </div>
 
     
@@ -194,6 +195,9 @@
           var item = select.selectedOptions[0];
           index = select.selectedIndex;
         });
+
+        read_route();
+        document.getElementById('author-select').setAttribute("style","width:80px");
       })();
     </script>
 <!-- 增加描述对话框代码 -->
@@ -205,7 +209,6 @@
      searchMovie($('#searchmoviename').val(), index);
     }
   });
-  read_route();
   
 });
 </script>

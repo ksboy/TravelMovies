@@ -216,14 +216,14 @@ public class Database {
 		return result;
 	}
 	public static ResultSet ReadDiscriptionUserIdAll(String user_id, String visible) {
-        String sql = "SELECT * FROM description where visible = ?";
+        String sql = "SELECT * FROM description where visible = ? OR user_id = ?";
         ResultSet result = null;
         try {
             int id = (int)ActionContext.getContext().getSession().get("id");
             user_id = String.valueOf(id);
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, visible);
-          // pstmt.setString(2, visible);
+            pstmt.setString(2, user_id);
             result = pstmt.executeQuery();
         } catch (SQLException e) {
         
