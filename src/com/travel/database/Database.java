@@ -3,6 +3,8 @@ package com.travel.database;
 import java.sql.*;
 import java.util.ArrayList;
 
+import com.opensymphony.xwork2.ActionContext;
+
 public class Database {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://localhost:3306/travel";
@@ -71,21 +73,23 @@ public class Database {
 	    
 	}
 	
-	public static boolean checkUser(String username, String password) {
+	public static int checkUser(String username, String password) {
 		String sql = "SELECT * FROM user WHERE name = ?";
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, username);
+			int user_id ;
 			rs = pstmt.executeQuery();
 			rs.next();
 			if(rs.getString("password").equals(password)) {
-				return true;
+			   user_id= rs.getInt("id");
+				return user_id;
 			}
 		} catch (SQLException exception) {
 			exception.printStackTrace();
 		}
-		return false;
+		return -1;
 	}
 	
 	public static int AddDiscription(String user_id, String x, String y, String place, String visible, String content, String movie, String thoughts, String tags) {
@@ -109,6 +113,21 @@ public class Database {
 		return result;
 	}
 	
+	public static int AddRoute(String user_id, String ids, String des) {
+		String sql = "INSERT INTO route (user_id, item_ids, des) VALUES (?, ?, ?)";
+		int result = 0;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			pstmt.setString(2, ids);
+			pstmt.setString(3, des);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
 	public static int DeleteDiscriptionById(String item_id) {
 		String sql = "DELETE FROM description WHERE item_id = ?";
 		int result = 0;
@@ -121,14 +140,161 @@ public class Database {
 		}
 		return result;
 	}
-	
+	public static String SearchName(int id) {
+        String sql = "SELECT * FROM user WHERE id = ?";
+        String result = null;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            rs.next();
+            result=rs.getString("name");
+            
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+	public static ResultSet SearchMovie(String moviename) {
+		String sql = "SELECT * FROM description WHERE movie = ?";
+		ResultSet result = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, moviename);
+			result = pstmt.executeQuery();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	public static ResultSet SearchPlace(String moviename) {
+        String sql = "SELECT * FROM description WHERE place like \"%\"?\"%\" ";
+        ResultSet result = null;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, moviename);
+            result = pstmt.executeQuery();
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+	public static ResultSet SearchTag(String moviename) {
+        String sql = "SELECT * FROM description WHERE tags like \"%\"?\"%\" ";
+        ResultSet result = null;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, moviename);
+            result = pstmt.executeQuery();
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+	public static ResultSet SearchPlot(String moviename) {
+        String sql = "SELECT * FROM description WHERE content like \"%\"?\"%\" ";
+        ResultSet result = null;
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, moviename);
+            result = pstmt.executeQuery();
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
 	public static ResultSet ReadDiscriptionUserId(String user_id, String visible) {
-		String sql = "SELECT * FROM description WHERE user_id = ? AND visible = ?";
+		String sql = "SELECT * FROM description WHERE user_id = ?";
+		ResultSet result = null;
+		try {
+		    int id = (int)ActionContext.getContext().getSession().get("id");
+	        user_id = String.valueOf(id);
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user_id);
+			//pstmt.setString(2, visible);
+			result = pstmt.executeQuery();
+		} catch (SQLException e) {
+		
+		}
+		return result;
+	}
+	public static ResultSet ReadRoute() {
+		String sql = "SELECT * FROM route";
+		ResultSet result = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeQuery();
+		} catch (SQLException e) {
+		
+		}
+		return result;
+	}
+	public static ResultSet ReadSelfRoute(String user_id) {
+		String sql = "SELECT * FROM route WHERE user_id = ?";
 		ResultSet result = null;
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user_id);
-			pstmt.setString(2, visible);
+			result = pstmt.executeQuery();
+		} catch (SQLException e) {
+		
+		}
+		return result;
+	}
+	public static ResultSet ReadFavRoute(String self_user_id) {
+		String sql = "SELECT * FROM user_follow WHERE self_id = ?";
+		ResultSet result = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, self_user_id);
+			result = pstmt.executeQuery();
+			sql = "SELECT * FROM route WHERE user_id = ";
+			result.next();
+			sql += result.getString("follow_id");
+			while(result.next()) {
+				sql += " OR item_id = ";
+				sql += result.getString("follow_id");
+			}
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeQuery();
+			
+		} catch (SQLException e) {
+		
+		}
+		return result;
+	}
+	public static ResultSet ReadDiscriptionUserIdAll(String user_id, String visible) {
+        String sql = "SELECT * FROM description where visible = ? OR user_id = ?";
+        ResultSet result = null;
+        try {
+            int id = (int)ActionContext.getContext().getSession().get("id");
+            user_id = String.valueOf(id);
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, visible);
+            pstmt.setString(2, user_id);
+            result = pstmt.executeQuery();
+        } catch (SQLException e) {
+        
+        }
+        return result;
+    }
+	public static ResultSet DisplayRoute(String route_id) {
+		String sql = "SELECT * FROM route WHERE route_id = ?";
+		ResultSet result = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, route_id);
+			result = pstmt.executeQuery();
+			result.next();
+			String ids = result.getString("item_ids");
+			String idsplit[] = ids.split("\\|");
+			sql = "SELECT * FROM description WHERE item_id = ";
+			for(int i = 0; i < idsplit.length - 1; i++) {
+				sql += idsplit[i];
+				sql += " OR item_id = ";
+			}
+			sql += idsplit[idsplit.length-1];
+			pstmt = conn.prepareStatement(sql);
 			result = pstmt.executeQuery();
 		} catch (SQLException e) {
 		

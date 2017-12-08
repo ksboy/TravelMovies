@@ -19,6 +19,11 @@
             	<param name="root">result</param>
             </result>
 		</action>
+		<action name="read_discription_id_all" class="com.travel.action.ReadDiscriptionAction" method="ReadDiscriptionUserIdAll">
+            <result type="json">
+                <param name="root">result</param>
+            </result>
+        </action>
 		<action name="delete_discription_id" class="com.travel.action.DeleteDiscriptionAction" method="DeleteDiscriptionById">
 			<result type="json">
             	<param name="root">result</param>
@@ -32,6 +37,41 @@
         <action name="login" class="com.travel.action.Login" method="execute">
         	<result type="json">
             	<param name="root">result</param>
+            </result>
+        </action>
+        <action name="searchmovie" class="com.travel.action.SearchMovie" method="SearchMovieName">
+        	<result type="json">
+            	<param name="root">result</param>
+            </result>
+        </action>
+        <action name="add_route" class="com.travel.action.AddRouteAction" method="AddRoute">
+        	<result type="json">
+            	<param name="root">result</param>
+            </result>
+        </action>
+        <action name="display_route" class="com.travel.action.DisplayRouteAction" method="DisplayRoute">
+        	<result type="json">
+            	<param name="root">result</param>
+            </result>
+        </action>
+        <action name="read_route" class="com.travel.action.ReadRouteAction" method="ReadRoute">
+        	<result type="json">
+            	<param name="root">result</param>
+            </result>
+        </action>
+        <action name="read_route_self" class="com.travel.action.ReadRouteAction" method="ReadSelfRoute">
+        	<result type="json">
+            	<param name="root">result</param>
+            </result>
+        </action>
+        <action name="read_route_fav" class="com.travel.action.ReadRouteAction" method="ReadFavRoute">
+        	<result type="json">
+            	<param name="root">result</param>
+            </result>
+        </action>
+        <action name="user_id" class="com.travel.action.UserId" method="GetId">
+            <result type="json">
+                <param name="root">result</param>
             </result>
         </action>
 	</package>

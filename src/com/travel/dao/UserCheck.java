@@ -11,7 +11,7 @@ public class UserCheck {
 	 */
 	public User checkUser(String username, String password) {
 		Database.Connect();
-		if(Database.checkUser(username, password)) {
+		if(Database.checkUser(username, password)!= -1) {
 			User user = new User();
 			user.setUsername(username);
 			user.setPassword(password);
