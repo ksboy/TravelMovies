@@ -106,7 +106,7 @@
 	            <button class="mdc-button mdc-button--raised mdc-button--primary toggle "><span id="user_id_span"></span></button>
 	            <div class="mdc-simple-menu" style="position: absolute; transform-origin: right top 0px; right: 0px; top: 0px; transform: scale(0, 0);" tabindex="-1" id="demo-menu">
 	            <ul class="mdc-simple-menu__items mdc-list" role="menu" aria-hidden="true" style="transform: scale(1, 1);">
-	            <li class="mdc-list-item" role="menuitem" tabindex="0" style="">用户主页</li>
+	            <li class="mdc-list-item" role="menuitem" tabindex="0" style="">我的关注</li>
 	            <li class="mdc-list-divider" role="separator"></li>
 	            <li class="mdc-list-item" role="menuitem" tabindex="0" style="">登出</li>
 	            </ul>
@@ -238,6 +238,10 @@
           if(detail.index == 1){
         	  window.location.href = "login.html";
           }
+          else if (detail.index == 0){
+        	  window.location.href = "person.jsp";
+          }
+          
         });
 
         read_route();
