@@ -7,10 +7,10 @@ import com.opensymphony.xwork2.ActionContext;
 
 public class Database {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://localhost:3306/travel";
+	static final String DB_URL = "jdbc:mysql://codebelief.com:3306/hwbookdb";
 	
-	static final String USER = "root";
-	static final String PASS = "1q2w3e4r";
+	static final String USER = "hw";
+	static final String PASS = "885622";
 
 	static Connection conn = null;
 	static PreparedStatement pstmt = null; 
