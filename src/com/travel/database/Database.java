@@ -192,11 +192,18 @@ public class Database {
 		return result;
 	}
 	
-	public static int DeleteDiscriptionById(String item_id) {
+	public static int DeleteDiscriptionById(String item_id,int x) {
 		String sql = "DELETE FROM description WHERE item_id = ?";
+		String sql2 = "SELECT * FROM description WHERE item_id = ?";
+		ResultSet rs = null;
 		int result = 0;
 		try {
-			pstmt = conn.prepareStatement(sql);
+		    pstmt2=conn.prepareStatement(sql2);
+		    pstmt2.setString(1,item_id);
+		    rs = pstmt2.executeQuery();
+		    rs.next();
+		    if(rs.getInt("user_id") != x) return result;
+		    pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, item_id);
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {
