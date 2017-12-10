@@ -323,7 +323,7 @@ public class Database {
 			result.next();
 			sql += result.getString("follow_id");
 			while(result.next()) {
-				sql += " OR item_id = ";
+				sql += " OR user_id = ";
 				sql += result.getString("follow_id");
 			}
 			pstmt = conn.prepareStatement(sql);
