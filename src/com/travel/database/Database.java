@@ -7,7 +7,7 @@ import com.opensymphony.xwork2.ActionContext;
 
 public class Database {
 	static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-	static final String DB_URL = "jdbc:mysql://codebelief.com:3306/hwbookdb";
+	static final String DB_URL = "jdbc:mysql://codebelief.com:3306/hwbookdb?useUnicode=true&characterEncoding=UTF-8";
 	
 	static final String USER = "hw";
 	static final String PASS = "885622";
