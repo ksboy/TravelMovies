@@ -139,6 +139,11 @@ function display_route(route_id){
 }
 
 function add_discription_listener(event){
+	try{
+        poly.setMap(null);
+      }catch(err){
+        
+      }
   // Clear out the old markers.
   markers.forEach(function(marker) {
     marker.setMap(null);
@@ -176,6 +181,11 @@ function add_discription_mode(){
 }
 
 function exit_discription_mode(){
+	try{
+	    poly.setMap(null);
+	  }catch(err){
+	    
+	  }
   try{
     add_dis_listen_id.remove();
   } catch(err){
@@ -253,6 +263,11 @@ function initAutocomplete() {
 }
 
 function add_discription(){
+	try{
+        poly.setMap(null);
+      }catch(err){
+        
+      }
   var user_id = $("#dis_user_id").val();
   var x = $("#dis_x").val();
   var y = $("#dis_y").val();
@@ -286,6 +301,11 @@ function add_discription(){
 }
 
 function add_route(){
+	try{
+        poly.setMap(null);
+      }catch(err){
+        
+      }
 	  var ids = $("#add_route_ids").val();
 	  var des = $("#add_route_des").val();
 	  if(ids){
@@ -314,6 +334,11 @@ function add_route(){
 	}
 
 function read_discription_id(){
+	try{
+        poly.setMap(null);
+      }catch(err){
+        
+      }
   var user_id = 1;
   var visible = 1;
   var dis;
@@ -373,6 +398,11 @@ function read_discription_id(){
 }
 
 function read_discription_id_all(){
+	try{
+        poly.setMap(null);
+      }catch(err){
+        
+      }
 	  var user_id = 1;
 	  var visible = 1;
 	  var dis;
@@ -432,6 +462,11 @@ function read_discription_id_all(){
 	}
 
 function delete_discription_id(item_id){
+	try{
+        poly.setMap(null);
+      }catch(err){
+        
+      }
   $.ajax({
     url : "delete_discription_id.action",
     type : "POST",
@@ -475,6 +510,11 @@ function SnackbarMsg(message){
 }
 
 function searchMovie(movie, ind){
+	try{
+        poly.setMap(null);
+      }catch(err){
+        
+      }
   $.ajax({
     url : "searchmovie.action",
     type : "POST",

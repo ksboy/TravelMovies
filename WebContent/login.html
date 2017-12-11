@@ -101,5 +101,15 @@
         snackbar.show(data);
       }
     </script>
+    <script type="text/javascript">
+  $(function (){
+  $('#lpassword').bind('keypress', function(event){
+    if(event.keyCode == "13"){
+    	loginPost();
+    }
+  });
+  
+});
+</script>
 </body>
 </html>
