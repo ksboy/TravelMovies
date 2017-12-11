@@ -185,8 +185,8 @@ function exit_discription_mode(){
 
 function initAutocomplete() {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -33.8688, lng: 151.2195},
-    zoom: 13,
+    center: {lat: 39.2529983, lng: 115.8044669},
+    zoom: 7,
     mapTypeId: 'roadmap'
   });
 
