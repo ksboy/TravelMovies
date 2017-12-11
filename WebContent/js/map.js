@@ -288,20 +288,29 @@ function add_discription(){
 function add_route(){
 	  var ids = $("#add_route_ids").val();
 	  var des = $("#add_route_des").val();
-	  $.ajax({
-	    url : "add_route.action",
-	    type : "POST",
-	    data : {
-	        ids,
-	        des, 
-	    },
-	    success : function() {
-	      SnackbarMsg("添加成功");
-	    },
-	    error : function() {
-	      SnackbarMsg("添加失败");
-	    }
-	  })
+	  if(ids){
+		  if(des){
+			  $.ajax({
+				    url : "add_route.action",
+				    type : "POST",
+				    data : {
+				        ids,
+				        des, 
+				    },
+				    success : function() {
+				      SnackbarMsg("添加成功");
+				    },
+				    error : function() {
+				      SnackbarMsg("添加失败");
+				    }
+				  })
+		  }else{
+			  SnackbarMsg("添加失败");
+		  }
+	  }
+	  else{
+		  SnackbarMsg("添加失败");
+	  }
 	}
 
 function read_discription_id(){

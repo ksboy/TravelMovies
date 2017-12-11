@@ -69,31 +69,31 @@
                               </section>
                               <section class="mdc-form-field max_width">
                                   <div class="mdc-textfield max_width" data-mdc-auto-init="MDCTextfield">
-                                      <input type="text" class="mdc-textfield__input" id="age" autocomplete="age" name="age">
+                                      <input type="text" class="mdc-textfield__input" id="age" autocomplete="age" name="age" required>
                                       <label for="age" class="mdc-textfield__label">年龄</label>
                                   </div>
                               </section>
                               <section class="mdc-form-field max_width">
                                   <div class="mdc-textfield max_width" data-mdc-auto-init="MDCTextfield">
-                                      <input type="text" class="mdc-textfield__input" id="gender" autocomplete="gender" name="gender">
+                                      <input type="text" class="mdc-textfield__input" id="gender" autocomplete="gender" name="gender" required>
                                       <label for="gender" class="mdc-textfield__label">性别</label>
                                   </div>
                               </section>
                               <section class="mdc-form-field max_width">
                                   <div class="mdc-textfield max_width" data-mdc-auto-init="MDCTextfield">
-                                      <input type="text" class="mdc-textfield__input" id="birth_date" autocomplete="birth_date" name="birth_date">
+                                      <input type="text" class="mdc-textfield__input" id="birth_date" autocomplete="birth_date" name="birth_date" required>
                                       <label for="birth_date" class="mdc-textfield__label">出生日期</label>
                                   </div>
                               </section>
                               <section class="mdc-form-field max_width">
                                   <div class="mdc-textfield max_width" data-mdc-auto-init="MDCTextfield">
-                                      <input type="text" class="mdc-textfield__input" id="bio" autocomplete="bio" name="bio">
+                                      <input type="text" class="mdc-textfield__input" id="bio" autocomplete="bio" name="bio" required>
                                       <label for="bio" class="mdc-textfield__label">简介</label>
                                   </div>
                               </section>
                               <section class="mdc-form-field max_width">
                                   <div class="mdc-textfield max_width" data-mdc-auto-init="MDCTextfield">
-                                      <input type="text" class="mdc-textfield__input" id="tags" autocomplete="tags" name="tags">
+                                      <input type="text" class="mdc-textfield__input" id="tags" autocomplete="tags" name="tags" required>
                                       <label for="tags" class="mdc-textfield__label">标签</label>
                                   </div>
                               </section>
@@ -127,6 +127,11 @@
         var answer = $("#answer").val();
         var age = $("#age").val();
         var gender = $("#gender").val();
+        if(gender === "男"){
+        	gender = 1;
+        }else if (gender === "女"){
+        	gender = 0;
+        }
         var birth_date = $("#birth_date").val();
         var bio = $("#bio").val();
         var tags = $("#tags").val();
