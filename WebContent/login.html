@@ -11,10 +11,10 @@
     <link rel="stylesheet" href="css/login_layout.css"/>
 	<title>跟着电影  去旅行</title>
 </head>
-<body>
+<body style = "background: #bdbdbd;">
     <div class="mdc-layout-grid login_panel">
-    <div class="mdc-layout-grid__inner login_grid">
-      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6-desktop mdc-layout-grid__cell--span-12-tablet mdc-layout-grid__cell--align-middle">
+    <div class="mdc-layout-grid__inner login_grid" style = "background-color: #bdbdbd;">
+      <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-6-desktop mdc-layout-grid__cell--span-12-tablet mdc-layout-grid__cell--align-middle" style = "background-color: white;">
 
           <section>
               <div class="mdc-card" style="padding: 10%">
@@ -82,7 +82,7 @@
             },
             success : function(data) {
               SnackbarMsg("登陆成功，即将跳转到主页");
-              setTimeout(function(){ window.location.href = "map.html"; }, 3000);
+              setTimeout(function(){ window.location.href = "amap.html"; }, 3000);
             },
             error : function() {
               SnackbarMsg("账号或密码错误");
@@ -101,5 +101,15 @@
         snackbar.show(data);
       }
     </script>
+    <script type="text/javascript">
+  $(function (){
+  $('#lpassword').bind('keypress', function(event){
+    if(event.keyCode == "13"){
+    	loginPost();
+    }
+  });
+  
+});
+</script>
 </body>
 </html>

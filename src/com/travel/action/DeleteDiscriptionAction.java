@@ -1,5 +1,6 @@
 package com.travel.action;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.travel.database.Database;
 
@@ -9,10 +10,18 @@ public class DeleteDiscriptionAction extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	private String result;
 	private String item_id;
-	public String DeleteDiscriptionById() {
+	private Integer user_id;
+	public Integer getUser_id() {
+        return user_id;
+    }
+    public void setUser_id(Integer user_id) {
+        this.user_id = user_id;
+    }
+    public String DeleteDiscriptionById() {
 		Database.Connect();
+		user_id = (int)ActionContext.getContext().getSession().get("id");
 		JSONObject rsjson = new JSONObject();
-		int affectedItemNum = Database.DeleteDiscriptionById(item_id);
+		int affectedItemNum = Database.DeleteDiscriptionById(item_id,user_id);
 		rsjson.put("result", affectedItemNum);
 		result = JSONObject.fromObject(rsjson).toString();
 		Database.Close();

@@ -7,6 +7,7 @@ import java.util.List;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.travel.database.Database;
 
@@ -59,6 +60,14 @@ public class ReadDiscriptionAction extends ActionSupport {
 		Database.Close();
 		return SUCCESS;
 	}
+	
+	public String ReadDiscriptionUserIdAll() {
+        Database.Connect();
+        ResultSet dis_list = Database.ReadDiscriptionUserIdAll(user_id, visible);
+        result = createdisJson(dis_list);
+        Database.Close();
+        return SUCCESS;
+    }
 	public String getResult() {
 		return result;
 	}

@@ -16,14 +16,12 @@ CREATE TABLE IF NOT EXISTS user
 );
 CREATE UNIQUE INDEX user_id_uindex ON user (id);
 CREATE UNIQUE INDEX user_name_uindex ON user (name);
-ALTER TABLE user COMMENT = '用户';
 
 CREATE TABLE IF NOT EXISTS user_follow
 (
     self_id INT NOT NULL,
     follow_id INT NOT NULL
 );
-ALTER TABLE user_follow COMMENT = '用户关注表';
 
 CREATE TABLE IF NOT EXISTS description
 (
@@ -39,11 +37,18 @@ CREATE TABLE IF NOT EXISTS description
     tags VARCHAR(600)
 );
 CREATE UNIQUE INDEX description_item_id_uindex ON description (item_id);
-ALTER TABLE description COMMENT = '描述';
 
 CREATE TABLE IF NOT EXISTS fav_description
 (
     user_id INT NOT NULL,
     item_id INT NOT NULL
 );
-ALTER TABLE fav_description COMMENT = '收藏描述';
+
+CREATE TABLE IF NOT EXISTS route
+(
+    user_id INT NOT NULL,
+    route_id INT PRIMARY KEY AUTO_INCREMENT,
+    item_ids VARCHAR(500) NOT NULL,
+    des VARCHAR(500)
+);
+CREATE UNIQUE INDEX route_route_id_uindex ON route (route_id);
